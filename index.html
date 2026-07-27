@@ -6,10 +6,6 @@
 <title>Mist</title>
 
 <style>
-/* =========================================================
-   MIST — SINGLE FILE INTERFACE
-   ========================================================= */
-
 :root {
     --bg: #212121;
     --sidebar: #171717;
@@ -60,8 +56,31 @@ button {
 }
 
 /* =========================================================
+   MIST LOGO
+   Organic drifting fog / mist mark
+========================================================= */
+
+.mist-logo {
+    position: relative;
+    width: 38px;
+    height: 34px;
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ededed;
+}
+
+.mist-logo svg {
+    width: 38px;
+    height: 34px;
+    display: block;
+    overflow: visible;
+}
+
+/* =========================================================
    APP
-   ========================================================= */
+========================================================= */
 
 #app {
     width: 100%;
@@ -71,102 +90,21 @@ button {
 }
 
 /* =========================================================
-   MIST LOGO
-   9 HOLLOW CIRCLES IN A THICK, WISPY MIST CLUSTER
-   ========================================================= */
-
-.mist-logo {
-    position: relative;
-    width: 34px;
-    height: 30px;
-    flex: 0 0 34px;
-    display: block;
-}
-
-.mist-logo span {
-    position: absolute;
-    display: block;
-
-    width: 7px;
-    height: 7px;
-
-    border: 1.6px solid #ededed;
-    border-radius: 50%;
-
-    opacity: .95;
-}
-
-/* Row / cluster arrangement */
-
-.mist-logo span:nth-child(1) {
-    left: 3px;
-    top: 11px;
-}
-
-.mist-logo span:nth-child(2) {
-    left: 7px;
-    top: 5px;
-}
-
-.mist-logo span:nth-child(3) {
-    left: 13px;
-    top: 3px;
-}
-
-.mist-logo span:nth-child(4) {
-    left: 19px;
-    top: 5px;
-}
-
-.mist-logo span:nth-child(5) {
-    left: 24px;
-    top: 9px;
-}
-
-.mist-logo span:nth-child(6) {
-    left: 20px;
-    top: 16px;
-}
-
-.mist-logo span:nth-child(7) {
-    left: 14px;
-    top: 20px;
-}
-
-.mist-logo span:nth-child(8) {
-    left: 8px;
-    top: 19px;
-}
-
-.mist-logo span:nth-child(9) {
-    left: 1px;
-    top: 18px;
-}
-
-/* =========================================================
    SIDEBAR
-   ========================================================= */
+========================================================= */
 
 #sidebar {
     position: relative;
-
     width: var(--sidebar-width);
     min-width: var(--sidebar-width);
     max-width: var(--sidebar-width);
-
     height: 100vh;
-
     flex: 0 0 var(--sidebar-width);
-
     background: var(--sidebar);
-
     display: flex;
     flex-direction: column;
-
     padding: 10px;
-
     overflow: hidden;
-
     transition:
         width .2s ease,
         min-width .2s ease,
@@ -178,48 +116,32 @@ button {
     width: var(--sidebar-collapsed-width);
     min-width: var(--sidebar-collapsed-width);
     max-width: var(--sidebar-collapsed-width);
-
     flex-basis: var(--sidebar-collapsed-width);
 }
-
-/* =========================================================
-   SIDEBAR TOP
-   ========================================================= */
 
 .sidebar-top {
     width: 100%;
     height: 42px;
-
     flex: 0 0 42px;
-
     display: flex;
     align-items: center;
-
+    gap: 4px;
     margin-bottom: 8px;
 }
 
 .sidebar-brand {
     height: 38px;
-
     flex: 1;
     min-width: 0;
-
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     padding: 0 5px;
-
     border: 0;
     border-radius: 8px;
-
     background: transparent;
-
     color: white;
-
     cursor: pointer;
-
     overflow: hidden;
 }
 
@@ -230,28 +152,21 @@ button {
 .sidebar-brand-name {
     font-size: 16px;
     font-weight: 650;
-
     white-space: nowrap;
-
-    transition: opacity .15s ease;
 }
 
 .sidebar-collapse {
-    width: 32px;
-    height: 32px;
-
-    flex: 0 0 32px;
-
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 0;
     border-radius: 8px;
-
     background: transparent;
-
     color: #aaa;
-
-    font-size: 21px;
-    line-height: 1;
-
+    font-size: 24px;
     cursor: pointer;
 }
 
@@ -260,18 +175,36 @@ button {
     color: white;
 }
 
-/* COLLAPSED SIDEBAR */
+#sidebar-expand {
+    display: none;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #aaa;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+#sidebar-expand:hover {
+    background: var(--sidebar-hover);
+    color: white;
+}
 
 #sidebar.collapsed .sidebar-top {
     justify-content: center;
 }
 
 #sidebar.collapsed .sidebar-brand {
-    flex: 0 0 34px;
-    width: 34px;
-
+    flex: 0 0 38px;
+    width: 38px;
+    min-width: 38px;
     padding: 0;
-
     justify-content: center;
 }
 
@@ -283,38 +216,26 @@ button {
     display: none;
 }
 
-/* =========================================================
-   SIDEBAR NAV
-   ========================================================= */
+#sidebar.collapsed #sidebar-expand {
+    display: flex;
+}
 
 .sidebar-button {
     width: 100%;
     height: 38px;
-
     flex: 0 0 38px;
-
     display: flex;
     align-items: center;
-
     gap: 10px;
-
     padding: 0 10px;
-
     border: 0;
     border-radius: 8px;
-
     background: transparent;
-
     color: #d5d5d5;
-
     font-size: 13px;
-
     text-align: left;
-
     cursor: pointer;
-
     overflow: hidden;
-
     white-space: nowrap;
 }
 
@@ -325,13 +246,10 @@ button {
 .sidebar-icon {
     width: 20px;
     min-width: 20px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: #ccc;
-
     font-size: 17px;
 }
 
@@ -340,75 +258,61 @@ button {
     white-space: nowrap;
 }
 
+.sidebar-label {
+    flex: 0 0 auto;
+    padding: 15px 10px 6px;
+    color: #6f6f6f;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
 #sidebar.collapsed .sidebar-button {
     justify-content: center;
     padding: 0;
 }
 
-#sidebar.collapsed .sidebar-text {
-    display: none;
-}
-
-.sidebar-label {
-    flex: 0 0 auto;
-
-    padding:
-        15px
-        10px
-        6px;
-
-    color: #6f6f6f;
-
-    font-size: 10px;
-    font-weight: 600;
-
-    text-transform: uppercase;
-    letter-spacing: .08em;
-}
-
+#sidebar.collapsed .sidebar-text,
 #sidebar.collapsed .sidebar-label {
     display: none;
 }
 
 /* =========================================================
    RECENT CHATS
-   ========================================================= */
+========================================================= */
 
 #recentChats {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
     overflow-x: hidden;
-
     scrollbar-width: thin;
 }
 
-.recent-chat {
+.recent-chat-wrapper {
+    position: relative;
     width: 100%;
+    height: 34px;
+    margin-bottom: 2px;
+}
 
+.recent-chat {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 34px;
     display: block;
-
-    padding:
-        7px
-        10px;
-
+    padding: 7px 36px 7px 10px;
     border: 0;
     border-radius: 7px;
-
     background: transparent;
-
     color: #999;
-
     font-size: 12px;
-
     text-align: left;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
     cursor: pointer;
 }
 
@@ -417,76 +321,81 @@ button {
     color: #eee;
 }
 
-#sidebar.collapsed #recentChats {
+.delete-chat-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 3;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #888;
+    font-size: 17px;
+    line-height: 1;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.recent-chat-wrapper:hover .delete-chat-button,
+.delete-chat-button:focus {
+    opacity: 1;
+}
+
+.delete-chat-button:hover {
+    background: #444;
+    color: #fff;
+}
+
+#sidebar.collapsed .recent-chat-wrapper {
     display: none;
 }
 
-/* =========================================================
-   SIDEBAR BOTTOM
-   ========================================================= */
-
 .sidebar-bottom {
     flex: 0 0 auto;
-
     padding-top: 8px;
     margin-top: 8px;
-
     border-top: 1px solid var(--border);
 }
 
 /* =========================================================
    MAIN
-   ========================================================= */
+========================================================= */
 
 #main {
     position: relative;
-
     flex: 1;
     min-width: 0;
-
     height: 100vh;
-
     display: flex;
     flex-direction: column;
-
     background: var(--bg);
 }
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
 
 #topbar {
     height: 48px;
     min-height: 48px;
-
     display: flex;
     align-items: center;
-
     padding: 0 18px;
-
     color: #888;
-
     font-size: 13px;
 }
 
 #mobileMenu {
     display: none;
-
     width: 34px;
     height: 34px;
-
     margin-right: 7px;
-
     border: 0;
     border-radius: 8px;
-
     background: transparent;
-
     color: #ddd;
-
     font-size: 19px;
-
     cursor: pointer;
 }
 
@@ -494,13 +403,8 @@ button {
     background: var(--surface);
 }
 
-/* =========================================================
-   VIEWS
-   ========================================================= */
-
 .view {
     display: none;
-
     flex: 1;
     min-height: 0;
 }
@@ -511,50 +415,30 @@ button {
 
 /* =========================================================
    CHAT
-   ========================================================= */
+========================================================= */
 
 #chatView {
     position: relative;
-
     flex-direction: column;
-
     min-height: 0;
 }
 
 #messagesContainer {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
-
-    padding:
-        18px
-        20px
-        145px;
+    padding: 18px 20px 145px;
 }
 
 #messages {
-    width:
-        min(
-            760px,
-            100%
-        );
-
+    width: min(760px, 100%);
     margin: 0 auto;
-}
-
-#chatView.empty #messagesContainer {
-    pointer-events: none;
 }
 
 .message {
     width: 100%;
-
     display: flex;
-
     gap: 10px;
-
     margin-bottom: 24px;
 }
 
@@ -564,19 +448,9 @@ button {
 
 .message.user .message-content {
     max-width: 75%;
-
-    padding:
-        10px
-        13px;
-
+    padding: 10px 13px;
     background: #2f2f2f;
-
-    border-radius:
-        15px
-        15px
-        4px
-        15px;
-
+    border-radius: 15px 15px 4px 15px;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -587,7 +461,6 @@ button {
 
 .message.assistant .message-content {
     max-width: 85%;
-
     font-size: 14px;
     line-height: 1.6;
 }
@@ -595,138 +468,77 @@ button {
 .message-avatar {
     width: 30px;
     height: 30px;
-
     flex: 0 0 30px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .message-avatar .mist-logo {
-    transform: scale(.85);
+    transform: scale(.8);
 }
-
-/* =========================================================
-   HOME GREETING
-   ========================================================= */
 
 #homeGreeting {
     position: absolute;
-
     left: 50%;
     top: 43%;
-
     transform: translate(-50%, -50%);
-
-    width:
-        min(
-            700px,
-            calc(100% - 40px)
-        );
-
+    width: min(700px, calc(100% - 40px));
     text-align: center;
-
     pointer-events: none;
-
-    transition: opacity .2s ease;
 }
 
 #homeGreeting h1 {
     margin: 0;
-
     color: #ececec;
-
     font-size: 25px;
     font-weight: 600;
-
     letter-spacing: -.4px;
 }
 
 /* =========================================================
    COMPOSER
-   ========================================================= */
+========================================================= */
 
 #composerArea {
     position: absolute;
-
     left: 50%;
     bottom: 20px;
-
     transform: translateX(-50%);
-
-    width:
-        min(
-            700px,
-            calc(100% - 32px)
-        );
-
+    width: min(700px, calc(100% - 32px));
     z-index: 10;
-
-    transition:
-        top .25s ease,
-        bottom .25s ease;
 }
 
 #chatView.empty #composerArea {
     top: 43%;
     bottom: auto;
-
-    transform:
-        translate(
-            -50%,
-            45px
-        );
+    transform: translate(-50%, 45px);
 }
 
 #composer {
     width: 100%;
-
     min-height: 58px;
-
     display: flex;
     align-items: flex-end;
-
     padding: 9px;
-
     background: #2f2f2f;
-
-    border:
-        1px solid
-        #4b4b4b;
-
+    border: 1px solid #4b4b4b;
     border-radius: 18px;
-
-    box-shadow:
-        0
-        4px
-        18px
-        rgba(
-            0,
-            0,
-            0,
-            .18
-        );
 }
 
 #addButton,
 #sendButton {
     width: 38px;
     height: 38px;
-
     flex: 0 0 38px;
-
     border: 0;
     border-radius: 10px;
-
     cursor: pointer;
 }
 
 #addButton {
     background: transparent;
-
     color: #ccc;
-
     font-size: 23px;
 }
 
@@ -736,23 +548,15 @@ button {
 
 #messageInput {
     flex: 1;
-
     min-width: 0;
     min-height: 38px;
     max-height: 180px;
-
     resize: none;
-
-    padding:
-        9px;
-
+    padding: 9px;
     border: 0;
     outline: 0;
-
     background: transparent;
-
     color: white;
-
     font-size: 14px;
     line-height: 1.4;
 }
@@ -763,11 +567,8 @@ button {
 
 #sendButton {
     background: #eee;
-
     color: #222;
-
     font-size: 18px;
-
     opacity: .35;
 }
 
@@ -777,11 +578,8 @@ button {
 
 #disclaimer {
     margin-top: 7px;
-
     color: #707070;
-
     font-size: 10px;
-
     text-align: center;
 }
 
@@ -791,83 +589,53 @@ button {
 
 /* =========================================================
    PANELS
-   ========================================================= */
+========================================================= */
 
 .panel {
     flex-direction: column;
-
-    padding:
-        28px
-        30px;
-
+    padding: 28px 30px;
     overflow-y: auto;
 }
 
 .panel-inner {
-    width:
-        min(
-            850px,
-            100%
-        );
-
+    width: min(850px, 100%);
     margin: 0 auto;
 }
 
 .panel-title {
     margin: 0;
-
     font-size: 24px;
     font-weight: 650;
 }
 
 .panel-subtitle {
-    margin:
-        5px
-        0
-        22px;
-
+    margin: 5px 0 22px;
     color: #999;
-
     font-size: 13px;
 }
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
 #searchInput {
     width: 100%;
     height: 43px;
-
     margin-bottom: 12px;
-
-    padding:
-        0
-        13px;
-
-    border:
-        1px solid
-        #4a4a4a;
-
+    padding: 0 13px;
+    border: 1px solid #4a4a4a;
     border-radius: 10px;
-
     outline: 0;
-
     background: #2f2f2f;
-
     color: white;
-
     font-size: 13px;
 }
 
 .search-result {
     display: flex;
     align-items: center;
-
     gap: 12px;
-
     padding: 12px;
-
     border-radius: 9px;
 }
 
@@ -882,7 +650,6 @@ button {
 
 .search-result-title {
     font-size: 13px;
-
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -890,103 +657,63 @@ button {
 
 .search-result-date {
     margin-top: 3px;
-
     color: #777;
-
     font-size: 10px;
 }
 
 /* =========================================================
    NOTES
-   ========================================================= */
+========================================================= */
 
 .notes-layout {
-    height:
-        calc(
-            100vh - 150px
-        );
-
+    height: calc(100vh - 150px);
     display: flex;
     flex-direction: column;
-
     gap: 10px;
 }
 
 .note-toolbar {
     display: flex;
-
     gap: 8px;
 }
 
 #noteTitle {
     flex: 1;
     min-width: 0;
-
     height: 40px;
-
-    padding:
-        0
-        12px;
-
-    border:
-        1px solid
-        #4a4a4a;
-
+    padding: 0 12px;
+    border: 1px solid #4a4a4a;
     border-radius: 9px;
-
     outline: 0;
-
     background: #2f2f2f;
-
     color: white;
 }
 
 #noteEditor {
     flex: 1;
-
     min-height: 300px;
-
     resize: none;
-
     padding: 15px;
-
-    border:
-        1px solid
-        #4a4a4a;
-
+    border: 1px solid #4a4a4a;
     border-radius: 10px;
-
     outline: 0;
-
     background: #2f2f2f;
-
     color: white;
-
     font-size: 14px;
     line-height: 1.6;
 }
 
 /* =========================================================
    BUTTONS
-   ========================================================= */
+========================================================= */
 
 .button {
-    padding:
-        9px
-        12px;
-
-    border:
-        1px solid
-        #4a4a4a;
-
+    padding: 9px 12px;
+    border: 1px solid #4a4a4a;
     border-radius: 8px;
-
     background: #2f2f2f;
-
     color: #ddd;
-
     font-size: 12px;
-
     cursor: pointer;
 }
 
@@ -996,25 +723,18 @@ button {
 
 .button.primary {
     background: #eee;
-
     border-color: #eee;
-
     color: #222;
-
     font-weight: 600;
 }
 
 /* =========================================================
    STACK
-   ========================================================= */
+========================================================= */
 
 #stackView {
-    padding:
-        18px
-        20px;
-
+    padding: 18px 20px;
     flex-direction: column;
-
     overflow: hidden;
 }
 
@@ -1022,26 +742,18 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 15px;
-
     margin-bottom: 12px;
 }
 
 .stack-header h1 {
     margin: 0;
-
     font-size: 21px;
 }
 
 .stack-header p {
-    margin:
-        4px
-        0
-        0;
-
+    margin: 4px 0 0;
     color: #888;
-
     font-size: 11px;
 }
 
@@ -1052,33 +764,18 @@ button {
 
 .stack-workspace {
     flex: 1;
-
     min-height: 0;
-
     display: grid;
-
-    grid-template-columns:
-        180px
-        minmax(
-            0,
-            1fr
-        );
-
+    grid-template-columns: 180px minmax(0, 1fr);
     gap: 10px;
 }
 
 .file-panel,
 .editor-panel {
     min-height: 0;
-
     overflow: hidden;
-
     background: #1b1b1b;
-
-    border:
-        1px solid
-        #363636;
-
+    border: 1px solid #363636;
     border-radius: 10px;
 }
 
@@ -1091,51 +788,28 @@ button {
 .editor-header {
     height: 39px;
     min-height: 39px;
-
     display: flex;
     align-items: center;
-
-    padding:
-        0
-        11px;
-
-    border-bottom:
-        1px solid
-        #363636;
-
+    padding: 0 11px;
+    border-bottom: 1px solid #363636;
     color: #bbb;
-
     font-size: 11px;
 }
 
 .file-list {
     flex: 1;
-
     overflow-y: auto;
-
     padding: 6px;
 }
 
 .file-item {
-    padding:
-        7px
-        8px;
-
+    padding: 7px 8px;
     border-radius: 6px;
-
     color: #aaa;
-
-    font-family:
-        Consolas,
-        Monaco,
-        monospace;
-
+    font-family: Consolas, Monaco, monospace;
     font-size: 11px;
-
     cursor: pointer;
-
     overflow: hidden;
-
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -1143,7 +817,6 @@ button {
 .file-item:hover,
 .file-item.active {
     background: #303030;
-
     color: white;
 }
 
@@ -1158,26 +831,15 @@ button {
 
 #codeEditor {
     flex: 1;
-
     width: 100%;
     min-height: 0;
-
     resize: none;
-
     padding: 14px;
-
     border: 0;
     outline: 0;
-
     background: #171717;
-
     color: #ddd;
-
-    font-family:
-        Consolas,
-        Monaco,
-        monospace;
-
+    font-family: Consolas, Monaco, monospace;
     font-size: 12px;
     line-height: 1.55;
 }
@@ -1185,49 +847,27 @@ button {
 #stackOutput {
     height: 80px;
     min-height: 80px;
-
     padding: 9px;
-
-    border-top:
-        1px solid
-        #363636;
-
+    border-top: 1px solid #363636;
     background: #111;
-
     color: #999;
-
-    font:
-        11px
-        monospace;
-
+    font: 11px monospace;
     overflow: auto;
 }
 
 /* =========================================================
    SETTINGS
-   ========================================================= */
+========================================================= */
 
 #settingsOverlay {
     position: fixed;
-
     inset: 0;
-
     z-index: 100;
-
     display: none;
-
     align-items: center;
     justify-content: center;
-
     padding: 20px;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .65
-        );
+    background: rgba(0,0,0,.65);
 }
 
 #settingsOverlay.show {
@@ -1235,52 +875,26 @@ button {
 }
 
 .settings-modal {
-    width:
-        min(
-            470px,
-            100%
-        );
-
+    width: min(470px, 100%);
     background: #252525;
-
-    border:
-        1px
-        solid
-        #444;
-
+    border: 1px solid #444;
     border-radius: 12px;
-
-    box-shadow:
-        0
-        20px
-        70px
-        #000;
+    box-shadow: 0 20px 70px #000;
 }
 
 .settings-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding:
-        14px
-        16px;
-
-    border-bottom:
-        1px
-        solid
-        #3b3b3b;
+    padding: 14px 16px;
+    border-bottom: 1px solid #3b3b3b;
 }
 
 .close-button {
     border: 0;
-
     background: transparent;
-
     color: #aaa;
-
     font-size: 20px;
-
     cursor: pointer;
 }
 
@@ -1290,82 +904,110 @@ button {
 
 .settings-label {
     display: block;
-
     margin-bottom: 6px;
-
     color: #999;
-
     font-size: 11px;
 }
 
 #personalitySetting {
     width: 100%;
     height: 38px;
-
-    padding:
-        0
-        10px;
-
-    border:
-        1px
-        solid
-        #444;
-
+    padding: 0 10px;
+    border: 1px solid #444;
     border-radius: 7px;
-
     outline: 0;
-
     background: #1b1b1b;
-
     color: white;
 }
 
 .settings-footer {
     display: flex;
     justify-content: flex-end;
-
     gap: 7px;
+    padding: 12px 16px;
+    border-top: 1px solid #3b3b3b;
+}
 
-    padding:
-        12px
-        16px;
+/* =========================================================
+   DELETE CONFIRMATION
+========================================================= */
 
-    border-top:
-        1px
-        solid
-        #3b3b3b;
+#deleteOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,.65);
+}
+
+#deleteOverlay.show {
+    display: flex;
+}
+
+.delete-modal {
+    width: min(360px, 100%);
+    padding: 20px;
+    background: #292929;
+    border: 1px solid #454545;
+    border-radius: 13px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.6);
+}
+
+.delete-modal h2 {
+    margin: 0 0 7px;
+    font-size: 17px;
+}
+
+.delete-modal p {
+    margin: 0;
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.delete-confirm-button {
+    padding: 9px 13px;
+    border: 0;
+    border-radius: 8px;
+    background: #e8e8e8;
+    color: #222;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-confirm-button:hover {
+    background: white;
 }
 
 /* =========================================================
    TOAST
-   ========================================================= */
+========================================================= */
 
 #toast {
     position: fixed;
-
     right: 20px;
     bottom: 20px;
-
     z-index: 200;
-
-    padding:
-        9px
-        13px;
-
+    padding: 9px 13px;
     border-radius: 7px;
-
     background: #eee;
-
     color: #111;
-
     font-size: 12px;
-
     opacity: 0;
-
     transform: translateY(8px);
-
     pointer-events: none;
-
     transition:
         opacity .2s ease,
         transform .2s ease;
@@ -1373,84 +1015,54 @@ button {
 
 #toast.show {
     opacity: 1;
-
     transform: translateY(0);
 }
 
 /* =========================================================
-   MOBILE BACKDROP
-   ========================================================= */
+   MOBILE
+========================================================= */
 
 #sidebarBackdrop {
     display: none;
-
     position: fixed;
-
     inset: 0;
-
     z-index: 40;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .55
-        );
+    background: rgba(0,0,0,.55);
 }
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
 
 @media (max-width: 750px) {
 
     #sidebar {
         position: fixed;
-
         top: 0;
         left: 0;
         bottom: 0;
-
         z-index: 50;
-
-        width: var(--sidebar-width);
-        min-width: var(--sidebar-width);
-        max-width: var(--sidebar-width);
-
-        flex-basis: var(--sidebar-width);
-
-        transform:
-            translateX(
-                -100%
-            );
-
-        transition:
-            transform .2s ease;
+        width: 220px;
+        min-width: 220px;
+        max-width: 220px;
+        flex-basis: 220px;
+        transform: translateX(-100%);
+        transition: transform .2s ease;
     }
 
     #sidebar.mobile-open {
-        transform:
-            translateX(0);
+        transform: translateX(0);
     }
 
     #sidebar.collapsed {
-        width: var(--sidebar-width);
-        min-width: var(--sidebar-width);
-        max-width: var(--sidebar-width);
-
-        flex-basis: var(--sidebar-width);
+        width: 220px;
+        min-width: 220px;
+        max-width: 220px;
+        flex-basis: 220px;
     }
 
     #sidebar.collapsed .sidebar-brand {
         flex: 1;
         width: auto;
-
+        min-width: 0;
         justify-content: flex-start;
-
-        padding:
-            0
-            5px;
+        padding: 0 5px;
     }
 
     #sidebar.collapsed .sidebar-brand-name {
@@ -1459,9 +1071,7 @@ button {
 
     #sidebar.collapsed .sidebar-button {
         justify-content: flex-start;
-        padding:
-            0
-            10px;
+        padding: 0 10px;
     }
 
     #sidebar.collapsed .sidebar-text {
@@ -1477,7 +1087,11 @@ button {
     }
 
     #sidebar.collapsed .sidebar-collapse {
-        display: block;
+        display: flex;
+    }
+
+    #sidebar.collapsed #sidebar-expand {
+        display: none;
     }
 
     #sidebarBackdrop.show {
@@ -1502,16 +1116,11 @@ button {
 
     #composerArea,
     #chatView.empty #composerArea {
-        width:
-            calc(
-                100% - 24px
-            );
+        width: calc(100% - 24px);
     }
 
     .panel {
-        padding:
-            22px
-            16px;
+        padding: 22px 16px;
     }
 }
 </style>
@@ -1521,402 +1130,427 @@ button {
 
 <div id="app">
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
 
-    <aside id="sidebar">
+<aside id="sidebar">
 
-        <div class="sidebar-top">
-
-            <button
-                class="sidebar-brand"
-                onclick="newChat()"
-                aria-label="New chat"
-            >
-
-                <div class="mist-logo" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <span class="sidebar-brand-name">
-                    Mist
-                </span>
-
-            </button>
-
-            <button
-                class="sidebar-collapse"
-                onclick="toggleSidebar()"
-                aria-label="Collapse sidebar"
-            >
-                ‹
-            </button>
-
-        </div>
-
+    <div class="sidebar-top">
 
         <button
-            class="sidebar-button"
+            class="sidebar-brand"
             onclick="newChat()"
-        >
-            <span class="sidebar-icon">✎</span>
-            <span class="sidebar-text">New chat</span>
-        </button>
-
-
-        <button
-            class="sidebar-button"
-            onclick="showView('search')"
-        >
-            <span class="sidebar-icon">⌕</span>
-            <span class="sidebar-text">Search chats</span>
-        </button>
-
-
-        <div class="sidebar-label">
-            Workspace
-        </div>
-
-
-        <button
-            class="sidebar-button"
-            onclick="showView('notes')"
-        >
-            <span class="sidebar-icon">▤</span>
-            <span class="sidebar-text">Notes</span>
-        </button>
-
-
-        <button
-            class="sidebar-button"
-            onclick="showView('stack')"
-        >
-            <span
-                class="sidebar-icon"
-                style="font-family:monospace;font-size:12px"
-            >&gt;_</span>
-
-            <span class="sidebar-text">
-                Stack
-            </span>
-        </button>
-
-
-        <div class="sidebar-label">
-            Recent
-        </div>
-
-
-        <div id="recentChats"></div>
-
-
-        <div class="sidebar-bottom">
-
-            <button
-                class="sidebar-button"
-                onclick="openSettings()"
-            >
-                <span class="sidebar-icon">⚙</span>
-                <span class="sidebar-text">
-                    Settings
-                </span>
-            </button>
-
-        </div>
-
-    </aside>
-
-
-    <div id="sidebarBackdrop"></div>
-
-
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
-
-    <main id="main">
-
-        <div id="topbar">
-
-            <button
-                id="mobileMenu"
-                onclick="toggleMobileSidebar()"
-            >
-                ☰
-            </button>
-
-            <span id="status"></span>
-
-        </div>
-
-
-        <!-- =================================================
-             CHAT
-        ================================================== -->
-
-        <section
-            id="chatView"
-            class="view active empty"
+            aria-label="New chat"
         >
 
-            <div id="messagesContainer">
+            <!-- Mist's logo is only shown in the sidebar -->
+            <div class="mist-logo" aria-hidden="true">
 
-                <div id="messages"></div>
-
-            </div>
-
-
-            <div id="homeGreeting">
-
-                <h1 id="greetingText">
-                    What's on your mind?
-                </h1>
-
-            </div>
-
-
-            <div id="composerArea">
-
-                <div id="composer">
-
-                    <button
-                        id="addButton"
-                        onclick="focusInput()"
-                    >
-                        ＋
-                    </button>
-
-
-                    <textarea
-                        id="messageInput"
-                        rows="1"
-                        placeholder="Message Mist…"
-                    ></textarea>
-
-
-                    <button
-                        id="sendButton"
-                        onclick="sendMessage()"
-                        disabled
-                    >
-                        ↑
-                    </button>
-
-                </div>
-
-
-                <div id="disclaimer">
-                    Mist can make mistakes. Check important information.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             SEARCH
-        ================================================== -->
-
-        <section
-            id="searchView"
-            class="view panel"
-        >
-
-            <div class="panel-inner">
-
-                <h1 class="panel-title">
-                    Search chats
-                </h1>
-
-                <p class="panel-subtitle">
-                    Search through your conversations.
-                </p>
-
-
-                <input
-                    id="searchInput"
-                    placeholder="Search chats…"
+                <svg
+                    viewBox="0 0 64 48"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
 
+                    <!-- soft upper fog cloud -->
+                    <path
+                        d="
+                            M7 24
+                            C4 20, 7 15, 12 15
+                            C13 9, 19 7, 24 10
+                            C28 6, 36 7, 39 12
+                            C45 10, 51 13, 51 18
+                            C57 17, 61 20, 59 25
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        opacity=".95"
+                    />
 
-                <div id="searchResults"></div>
+                    <!-- main drifting fog -->
+                    <path
+                        d="
+                            M6 28
+                            C13 24, 18 27, 23 29
+                            C29 32, 35 31, 40 27
+                            C46 23, 52 24, 58 28
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        opacity=".68"
+                    />
 
-            </div>
+                    <!-- fading mist tail -->
+                    <path
+                        d="
+                            M11 35
+                            C17 32, 23 33, 28 36
+                            C34 39, 40 38, 45 35
+                            C49 33, 53 33, 56 35
+                        "
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3.5"
+                        stroke-linecap="round"
+                        opacity=".32"
+                    />
 
-        </section>
+                    <!-- tiny drifting particle -->
+                    <circle
+                        cx="55"
+                        cy="9"
+                        r="2"
+                        fill="currentColor"
+                        opacity=".4"
+                    />
 
-
-        <!-- =================================================
-             NOTES
-        ================================================== -->
-
-        <section
-            id="notesView"
-            class="view panel"
-        >
-
-            <div class="panel-inner">
-
-                <h1 class="panel-title">
-                    Notes
-                </h1>
-
-                <p class="panel-subtitle">
-                    A simple place to remember ideas, plans, and things you want to do.
-                </p>
-
-
-                <div class="notes-layout">
-
-                    <div class="note-toolbar">
-
-                        <input
-                            id="noteTitle"
-                            placeholder="Note title…"
-                        >
-
-                        <button
-                            class="button"
-                            onclick="newNote()"
-                        >
-                            New
-                        </button>
-
-                        <button
-                            class="button primary"
-                            onclick="saveNote()"
-                        >
-                            Save
-                        </button>
-
-                    </div>
-
-
-                    <textarea
-                        id="noteEditor"
-                        placeholder="Start writing…"
-                    ></textarea>
-
-                </div>
+                </svg>
 
             </div>
 
-        </section>
+            <span class="sidebar-brand-name">
+                Mist
+            </span>
 
+        </button>
 
-        <!-- =================================================
-             STACK
-        ================================================== -->
-
-        <section
-            id="stackView"
-            class="view"
+        <button
+            class="sidebar-collapse"
+            onclick="toggleSidebar()"
+            aria-label="Collapse sidebar"
         >
+            ‹
+        </button>
 
-            <div class="stack-header">
+    </div>
 
-                <div>
+    <button
+        id="sidebar-expand"
+        onclick="toggleSidebar()"
+        aria-label="Expand sidebar"
+    >
+        ›
+    </button>
 
-                    <h1>
-                        Stack
-                    </h1>
+    <button
+        class="sidebar-button"
+        onclick="newChat()"
+    >
+        <span class="sidebar-icon">✎</span>
+        <span class="sidebar-text">New chat</span>
+    </button>
 
-                    <p>
-                        Mist's coding workspace
-                    </p>
+    <button
+        class="sidebar-button"
+        onclick="showView('search')"
+    >
+        <span class="sidebar-icon">⌕</span>
+        <span class="sidebar-text">Search chats</span>
+    </button>
 
-                </div>
+    <div class="sidebar-label">
+        Workspace
+    </div>
 
+    <button
+        class="sidebar-button"
+        onclick="showView('notes')"
+    >
+        <span class="sidebar-icon">▤</span>
+        <span class="sidebar-text">Notes</span>
+    </button>
 
-                <div class="stack-actions">
+    <button
+        class="sidebar-button"
+        onclick="showView('stack')"
+    >
+        <span
+            class="sidebar-icon"
+            style="font-family:monospace;font-size:12px"
+        >&gt;_</span>
+        <span class="sidebar-text">Stack</span>
+    </button>
+
+    <div class="sidebar-label">
+        Recent
+    </div>
+
+    <!--
+        IMPORTANT:
+        Delete buttons are dynamically created here.
+        Event delegation is attached in JavaScript
+        to this parent element.
+    -->
+    <div id="recentChats"></div>
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="sidebar-button"
+            onclick="openSettings()"
+        >
+            <span class="sidebar-icon">⚙</span>
+            <span class="sidebar-text">Settings</span>
+        </button>
+
+    </div>
+
+</aside>
+
+<div id="sidebarBackdrop"></div>
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main id="main">
+
+    <div id="topbar">
+
+        <button
+            id="mobileMenu"
+            onclick="toggleMobileSidebar()"
+        >
+            ☰
+        </button>
+
+        <span id="status"></span>
+
+    </div>
+
+    <!-- CHAT -->
+
+    <section
+        id="chatView"
+        class="view active empty"
+    >
+
+        <div id="messagesContainer">
+            <div id="messages"></div>
+        </div>
+
+        <div id="homeGreeting">
+            <h1 id="greetingText">
+                What's on your mind?
+            </h1>
+        </div>
+
+        <div id="composerArea">
+
+            <div id="composer">
+
+                <button
+                    id="addButton"
+                    onclick="focusInput()"
+                >
+                    ＋
+                </button>
+
+                <textarea
+                    id="messageInput"
+                    rows="1"
+                    placeholder="Message Mist…"
+                ></textarea>
+
+                <button
+                    id="sendButton"
+                    onclick="sendMessage()"
+                    disabled
+                >
+                    ↑
+                </button>
+
+            </div>
+
+            <div id="disclaimer">
+                Mist can make mistakes.
+                Check important information.
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SEARCH -->
+
+    <section
+        id="searchView"
+        class="view panel"
+    >
+
+        <div class="panel-inner">
+
+            <h1 class="panel-title">
+                Search chats
+            </h1>
+
+            <p class="panel-subtitle">
+                Search through your conversations.
+            </p>
+
+            <input
+                id="searchInput"
+                placeholder="Search chats…"
+            >
+
+            <div id="searchResults"></div>
+
+        </div>
+
+    </section>
+
+    <!-- NOTES -->
+
+    <section
+        id="notesView"
+        class="view panel"
+    >
+
+        <div class="panel-inner">
+
+            <h1 class="panel-title">
+                Notes
+            </h1>
+
+            <p class="panel-subtitle">
+                A simple place to remember ideas,
+                plans, and things you want to do.
+            </p>
+
+            <div class="notes-layout">
+
+                <div class="note-toolbar">
+
+                    <input
+                        id="noteTitle"
+                        placeholder="Note title…"
+                    >
 
                     <button
                         class="button"
-                        onclick="newFile()"
+                        onclick="newNote()"
                     >
-                        ＋ File
-                    </button>
-
-                    <button
-                        class="button"
-                        onclick="askMistFromStack()"
-                    >
-                        Ask Mist
+                        New
                     </button>
 
                     <button
                         class="button primary"
-                        onclick="runCode()"
+                        onclick="saveNote()"
                     >
-                        Run
+                        Save
                     </button>
 
                 </div>
 
-            </div>
-
-
-            <div class="stack-workspace">
-
-                <div class="file-panel">
-
-                    <div class="panel-header">
-                        Project files
-                    </div>
-
-                    <div
-                        class="file-list"
-                        id="fileList"
-                    ></div>
-
-                </div>
-
-
-                <div class="editor-panel">
-
-                    <div class="editor-header">
-
-                        <span id="currentFileName">
-                            index.html
-                        </span>
-
-                        <span>
-                            Stack
-                        </span>
-
-                    </div>
-
-
-                    <textarea
-                        id="codeEditor"
-                        spellcheck="false"
-                    ></textarea>
-
-
-                    <div id="stackOutput">
-                        Output will appear here.
-                    </div>
-
-                </div>
+                <textarea
+                    id="noteEditor"
+                    placeholder="Start writing…"
+                ></textarea>
 
             </div>
 
-        </section>
+        </div>
 
-    </main>
+    </section>
+
+    <!-- STACK -->
+
+    <section
+        id="stackView"
+        class="view"
+    >
+
+        <div class="stack-header">
+
+            <div>
+
+                <h1>Stack</h1>
+
+                <p>
+                    Mist's coding workspace
+                </p>
+
+            </div>
+
+            <div class="stack-actions">
+
+                <button
+                    class="button"
+                    onclick="newFile()"
+                >
+                    ＋ File
+                </button>
+
+                <button
+                    class="button"
+                    onclick="askMistFromStack()"
+                >
+                    Ask Mist
+                </button>
+
+                <button
+                    class="button primary"
+                    onclick="runCode()"
+                >
+                    Run
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="stack-workspace">
+
+            <div class="file-panel">
+
+                <div class="panel-header">
+                    Project files
+                </div>
+
+                <div
+                    class="file-list"
+                    id="fileList"
+                ></div>
+
+            </div>
+
+            <div class="editor-panel">
+
+                <div class="editor-header">
+
+                    <span id="currentFileName">
+                        index.html
+                    </span>
+
+                    <span>
+                        Stack
+                    </span>
+
+                </div>
+
+                <textarea
+                    id="codeEditor"
+                    spellcheck="false"
+                ></textarea>
+
+                <div id="stackOutput">
+                    Output will appear here.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
 
 </div>
-
 
 <!-- =====================================================
      SETTINGS
@@ -1940,7 +1574,6 @@ button {
             </button>
 
         </div>
-
 
         <div class="settings-body">
 
@@ -1970,7 +1603,6 @@ button {
 
         </div>
 
-
         <div class="settings-footer">
 
             <button
@@ -1993,27 +1625,70 @@ button {
 
 </div>
 
+<!-- =====================================================
+     DELETE CONFIRMATION
+====================================================== -->
+
+<div id="deleteOverlay">
+
+    <div
+        class="delete-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <h2>
+            Delete this chat?
+        </h2>
+
+        <p id="deleteMessage">
+            This conversation will be permanently removed.
+        </p>
+
+        <div class="delete-modal-actions">
+
+            <button
+                class="button"
+                onclick="cancelDelete()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="delete-confirm-button"
+                onclick="confirmDelete()"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <div id="toast"></div>
-
 
 <script>
 
 /* =========================================================
-   GROQ API CONFIGURATION
+   GROQ CONFIGURATION
 
-   PUT YOUR API KEY HERE
-   ========================================================= */
+   PUT YOUR GROQ API KEY BETWEEN THE QUOTES.
+
+   WARNING:
+   A key placed in a GitHub Pages HTML file is visible
+   to visitors. For a real public deployment, use a
+   server-side proxy or serverless function.
+========================================================= */
 
 const GROQ_API_KEY =
-    "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";
+    "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";
 
 
 /*
-   You can change the model here if you want.
-
-   It is intentionally NOT displayed anywhere
-   in the Mist interface.
+   Internal model configuration.
+   This is deliberately not displayed in the interface.
 */
 
 const GROQ_MODEL =
@@ -2026,30 +1701,33 @@ const GROQ_URL =
 
 /* =========================================================
    SYSTEM PROMPT
-   ========================================================= */
+========================================================= */
 
 const SYSTEM_PROMPT = `
+
 You are Mist, an AI assistant.
 
 Your name is Mist.
 
-You are thoughtful, helpful, curious, creative,
-practical, and direct.
+You are thoughtful, helpful, curious,
+creative, practical, and direct.
 
-You help users with programming, writing,
-planning, brainstorming, research, problem
-solving, and learning.
+You help users with programming,
+writing, planning, brainstorming,
+research, problem solving, and learning.
 
 Be honest about your limitations.
 
-When helping with programming, provide complete,
-accurate, useful code when appropriate.
+When helping with programming,
+provide complete and useful code
+when appropriate.
+
 `;
 
 
 /* =========================================================
-   RANDOM GREETINGS
-   ========================================================= */
+   GREETINGS
+========================================================= */
 
 const GREETINGS = [
 
@@ -2096,36 +1774,33 @@ function randomGreeting() {
 
 /* =========================================================
    STATE
-   ========================================================= */
+========================================================= */
 
 let chats =
-    JSON.parse(
-        localStorage.getItem(
-            "mistChats"
-        ) ||
-        "[]"
+    loadJSON(
+        "mistChats",
+        []
     );
 
 
 let notes =
-    JSON.parse(
-        localStorage.getItem(
-            "mistNotes"
-        ) ||
-        "[]"
+    loadJSON(
+        "mistNotes",
+        []
     );
 
 
 let files =
-    JSON.parse(
-        localStorage.getItem(
-            "mistFiles"
-        ) ||
-        "null"
+    loadJSON(
+        "mistFiles",
+        null
     );
 
 
-if (!files) {
+if (
+    !files ||
+    typeof files !== "object"
+) {
 
     files = {
 
@@ -2161,39 +1836,149 @@ let currentNote =
     null;
 
 
+/*
+   Stores the ID of the chat that the user
+   has requested to delete.
+
+   The actual deletion does NOT happen until
+   confirmDelete() is called.
+*/
+
+let pendingDeleteChatID =
+    null;
+
+
 /* =========================================================
-   STORAGE
-   ========================================================= */
+   LOCAL STORAGE
+========================================================= */
+
+function loadJSON(
+    key,
+    fallback
+) {
+
+    try {
+
+        const value =
+            localStorage.getItem(
+                key
+            );
+
+
+        if (
+            value ===
+            null
+        ) {
+
+            return fallback;
+
+        }
+
+
+        const parsed =
+            JSON.parse(
+                value
+            );
+
+
+        return parsed;
+
+    } catch (
+        error
+    ) {
+
+        console.error(
+            "Storage error:",
+            error
+        );
+
+
+        return fallback;
+
+    }
+
+}
+
+
+function saveChats() {
+
+    try {
+
+        localStorage.setItem(
+            "mistChats",
+            JSON.stringify(
+                chats
+            )
+        );
+
+        return true;
+
+    } catch (
+        error
+    ) {
+
+        console.error(
+            "Could not save chats:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
 
 function saveData() {
 
-    localStorage.setItem(
-        "mistChats",
-        JSON.stringify(
-            chats
-        )
-    );
+    try {
 
-    localStorage.setItem(
-        "mistNotes",
-        JSON.stringify(
-            notes
-        )
-    );
+        localStorage.setItem(
+            "mistChats",
+            JSON.stringify(
+                chats
+            )
+        );
 
-    localStorage.setItem(
-        "mistFiles",
-        JSON.stringify(
-            files
-        )
-    );
+
+        localStorage.setItem(
+            "mistNotes",
+            JSON.stringify(
+                notes
+            )
+        );
+
+
+        localStorage.setItem(
+            "mistFiles",
+            JSON.stringify(
+                files
+            )
+        );
+
+
+        return true;
+
+    } catch (
+        error
+    ) {
+
+        console.error(
+            "Could not save data:",
+            error
+        );
+
+
+        return false;
+
+    }
 
 }
 
 
 /* =========================================================
    SIDEBAR
-   ========================================================= */
+========================================================= */
 
 function toggleSidebar() {
 
@@ -2203,26 +1988,25 @@ function toggleSidebar() {
         );
 
 
-    sidebar.classList.toggle(
-        "collapsed"
-    );
-
-
-    const collapsed =
-        sidebar.classList.contains(
+    const isCollapsed =
+        sidebar.classList.toggle(
             "collapsed"
         );
 
 
     localStorage.setItem(
         "mistSidebarCollapsed",
-        collapsed
+        isCollapsed
             ? "1"
             : "0"
     );
 
 }
 
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
 
 function toggleMobileSidebar() {
 
@@ -2276,7 +2060,7 @@ function closeMobileSidebar() {
 
 /* =========================================================
    NAVIGATION
-   ========================================================= */
+========================================================= */
 
 function showView(
     name
@@ -2353,14 +2137,14 @@ function showView(
 
 /* =========================================================
    NEW CHAT
-   ========================================================= */
+========================================================= */
 
 function newChat() {
 
     currentChat = {
 
         id:
-            Date.now(),
+            createID(),
 
         title:
             "New chat",
@@ -2419,7 +2203,6 @@ function newChat() {
 
     resizeInput();
 
-
     updateSendButton();
 
 
@@ -2434,8 +2217,35 @@ function newChat() {
 
 
 /* =========================================================
+   UNIQUE ID
+========================================================= */
+
+function createID() {
+
+    return (
+
+        Date.now().toString(
+            36
+        ) +
+
+        "_" +
+
+        Math.random()
+            .toString(
+                36
+            )
+            .slice(
+                2
+            )
+
+    );
+
+}
+
+
+/* =========================================================
    INPUT
-   ========================================================= */
+========================================================= */
 
 function focusInput() {
 
@@ -2548,8 +2358,8 @@ document
 
 
 /* =========================================================
-   SEND
-   ========================================================= */
+   SEND MESSAGE
+========================================================= */
 
 async function sendMessage() {
 
@@ -2578,7 +2388,7 @@ async function sendMessage() {
         currentChat = {
 
             id:
-                Date.now(),
+                createID(),
 
             title:
                 "New chat",
@@ -2653,14 +2463,17 @@ async function sendMessage() {
         "none";
 
 
+    saveCurrentChat();
+
+
     await getMistResponse();
 
 }
 
 
 /* =========================================================
-   MESSAGE
-   ========================================================= */
+   APPEND MESSAGE
+========================================================= */
 
 function appendMessage(
     role,
@@ -2693,12 +2506,8 @@ function appendMessage(
             "message-avatar";
 
 
-        const logo =
-            createMistLogo();
-
-
         avatar.appendChild(
-            logo
+            createMistLogo()
         );
 
 
@@ -2759,8 +2568,8 @@ function appendMessage(
 
 
 /* =========================================================
-   LOGO CREATOR
-   ========================================================= */
+   LOGO FACTORY
+========================================================= */
 
 function createMistLogo() {
 
@@ -2774,19 +2583,69 @@ function createMistLogo() {
         "mist-logo";
 
 
-    for (
-        let i = 0;
-        i < 9;
-        i++
-    ) {
+    logo.innerHTML = `
 
-        logo.appendChild(
-            document.createElement(
-                "span"
-            )
-        );
+        <svg
+            viewBox="0 0 64 48"
+            xmlns="http://www.w3.org/2000/svg"
+        >
 
-    }
+            <path
+                d="
+                    M7 24
+                    C4 20, 7 15, 12 15
+                    C13 9, 19 7, 24 10
+                    C28 6, 36 7, 39 12
+                    C45 10, 51 13, 51 18
+                    C57 17, 61 20, 59 25
+                "
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                opacity=".95"
+            />
+
+            <path
+                d="
+                    M6 28
+                    C13 24, 18 27, 23 29
+                    C29 32, 35 31, 40 27
+                    C46 23, 52 24, 58 28
+                "
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+                opacity=".68"
+            />
+
+            <path
+                d="
+                    M11 35
+                    C17 32, 23 33, 28 36
+                    C34 39, 40 38, 45 35
+                    C49 33, 53 33, 56 35
+                "
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                opacity=".32"
+            />
+
+            <circle
+                cx="55"
+                cy="9"
+                r="2"
+                fill="currentColor"
+                opacity=".4"
+            />
+
+        </svg>
+
+    `;
 
 
     return logo;
@@ -2795,8 +2654,8 @@ function createMistLogo() {
 
 
 /* =========================================================
-   TEXT FORMAT
-   ========================================================= */
+   FORMAT TEXT
+========================================================= */
 
 function formatText(
     text
@@ -2833,8 +2692,8 @@ function formatText(
 
 
 /* =========================================================
-   GROQ
-   ========================================================= */
+   GROQ RESPONSE
+========================================================= */
 
 async function getMistResponse() {
 
@@ -2849,79 +2708,10 @@ async function getMistResponse() {
         "Mist is thinking…";
 
 
-    const loading =
-        document.createElement(
-            "div"
-        );
-
-
-    loading.className =
-        "message assistant";
-
-
-    loading.id =
-        "mistLoading";
-
-
-    const avatar =
-        document.createElement(
-            "div"
-        );
-
-
-    avatar.className =
-        "message-avatar";
-
-
-    avatar.appendChild(
-        createMistLogo()
-    );
-
-
-    const content =
-        document.createElement(
-            "div"
-        );
-
-
-    content.className =
-        "message-content";
-
-
-    content.style.color =
-        "#888";
-
-
-    content.textContent =
-        "Thinking…";
-
-
-    loading.appendChild(
-        avatar
-    );
-
-
-    loading.appendChild(
-        content
-    );
-
-
-    document
-        .getElementById(
-            "messages"
-        )
-        .appendChild(
-            loading
-        );
-
-
     if (
         GROQ_API_KEY ===
         "PASTE_YOUR_GROQ_API_KEY_HERE"
     ) {
-
-        loading.remove();
-
 
         const message =
             "Add your Groq API key near the top of this HTML file to start chatting with Mist.";
@@ -2986,11 +2776,13 @@ async function getMistResponse() {
                             messages: [
 
                                 {
+
                                     role:
                                         "system",
 
                                     content:
                                         SYSTEM_PROMPT
+
                                 },
 
                                 ...currentChat.messages
@@ -3033,9 +2825,6 @@ async function getMistResponse() {
             "I didn't receive a response.";
 
 
-        loading.remove();
-
-
         currentChat.messages.push({
 
             role:
@@ -3059,6 +2848,7 @@ async function getMistResponse() {
         status.textContent =
             "";
 
+
     } catch (
         error
     ) {
@@ -3066,9 +2856,6 @@ async function getMistResponse() {
         console.error(
             error
         );
-
-
-        loading.remove();
 
 
         const message =
@@ -3104,13 +2891,14 @@ async function getMistResponse() {
 
 
 /* =========================================================
-   CHAT STORAGE
-   ========================================================= */
+   SAVE CURRENT CHAT
+========================================================= */
 
 function saveCurrentChat() {
 
     if (
         !currentChat ||
+        !currentChat.messages ||
         !currentChat.messages.length
     ) {
 
@@ -3119,37 +2907,48 @@ function saveCurrentChat() {
     }
 
 
-    const index =
+    const existingIndex =
         chats.findIndex(
             chat =>
-                chat.id ===
-                currentChat.id
+                String(
+                    chat.id
+                ) ===
+                String(
+                    currentChat.id
+                )
         );
 
 
     if (
-        index >=
-        0
+        existingIndex ===
+        -1
     ) {
-
-        chats[index] =
-            currentChat;
-
-    } else {
 
         chats.unshift(
             currentChat
         );
 
+    } else {
+
+        chats[
+            existingIndex
+        ] =
+            currentChat;
+
     }
 
 
-    saveData();
+    saveChats();
+
 
     renderRecentChats();
 
 }
 
+
+/* =========================================================
+   RENDER RECENT CHATS
+========================================================= */
 
 function renderRecentChats() {
 
@@ -3160,8 +2959,13 @@ function renderRecentChats() {
             );
 
 
-    container.innerHTML =
-        "";
+    /*
+       Completely clear the old DOM.
+       This prevents stale delete buttons
+       and stale chat IDs.
+    */
+
+    container.replaceChildren();
 
 
     chats
@@ -3171,6 +2975,22 @@ function renderRecentChats() {
         )
         .forEach(
             chat => {
+
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                wrapper.className =
+                    "recent-chat-wrapper";
+
+
+                wrapper.dataset.chatId =
+                    String(
+                        chat.id
+                    );
+
 
                 const button =
                     document.createElement(
@@ -3182,19 +3002,68 @@ function renderRecentChats() {
                     "recent-chat";
 
 
+                button.type =
+                    "button";
+
+
+                button.dataset.action =
+                    "open";
+
+
                 button.textContent =
-                    chat.title;
+                    chat.title ||
+                    "Untitled chat";
 
 
-                button.onclick =
-                    () =>
-                        openChat(
-                            chat.id
-                        );
+                button.title =
+                    chat.title ||
+                    "Untitled chat";
+
+
+                const deleteButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                deleteButton.className =
+                    "delete-chat-button";
+
+
+                deleteButton.type =
+                    "button";
+
+
+                deleteButton.dataset.action =
+                    "delete";
+
+
+                deleteButton.setAttribute(
+                    "aria-label",
+                    "Delete chat"
+                );
+
+
+                deleteButton.title =
+                    "Delete chat";
+
+
+                deleteButton.textContent =
+                    "×";
+
+
+                wrapper.appendChild(
+                    button
+                );
+
+
+                wrapper.appendChild(
+                    deleteButton
+                );
 
 
                 container.appendChild(
-                    button
+                    wrapper
                 );
 
             }
@@ -3203,19 +3072,414 @@ function renderRecentChats() {
 }
 
 
-function openChat(
-    id
+/* =========================================================
+   EVENT DELEGATION FOR CHAT SIDEBAR
+========================================================= */
+
+/*
+   This listener is attached ONCE to #recentChats.
+
+   It continues working even after renderRecentChats()
+   destroys and recreates all chat buttons.
+
+   This avoids the problem of individual dynamically
+   created buttons losing their event listeners.
+*/
+
+document
+    .getElementById(
+        "recentChats"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            const actionButton =
+                event.target.closest(
+                    "[data-action]"
+                );
+
+
+            if (
+                !actionButton
+            ) {
+
+                return;
+
+            }
+
+
+            const wrapper =
+                actionButton.closest(
+                    ".recent-chat-wrapper"
+                );
+
+
+            if (
+                !wrapper
+            ) {
+
+                return;
+
+            }
+
+
+            const chatID =
+                wrapper.dataset.chatId;
+
+
+            const action =
+                actionButton.dataset.action;
+
+
+            /*
+               DELETE
+            */
+
+            if (
+                action ===
+                "delete"
+            ) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                requestDeleteChat(
+                    chatID
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+               OPEN
+            */
+
+            if (
+                action ===
+                "open"
+            ) {
+
+                event.preventDefault();
+
+
+                openChat(
+                    chatID
+                );
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   REQUEST DELETE
+========================================================= */
+
+function requestDeleteChat(
+    chatID
 ) {
+
+    const id =
+        String(
+            chatID
+        );
+
 
     const chat =
         chats.find(
             item =>
-                item.id ===
+                String(
+                    item.id
+                ) ===
                 id
         );
 
 
-    if (!chat) {
+    if (
+        !chat
+    ) {
+
+        console.warn(
+            "Delete requested for unknown chat:",
+            id
+        );
+
+
+        return;
+
+    }
+
+
+    pendingDeleteChatID =
+        id;
+
+
+    document
+        .getElementById(
+            "deleteMessage"
+        )
+        .textContent =
+
+        `"${chat.title || "Untitled chat"}" will be permanently removed.`;
+
+
+    document
+        .getElementById(
+            "deleteOverlay"
+        )
+        .classList
+        .add(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CANCEL DELETE
+========================================================= */
+
+function cancelDelete() {
+
+    pendingDeleteChatID =
+        null;
+
+
+    document
+        .getElementById(
+            "deleteOverlay"
+        )
+        .classList
+        .remove(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CONFIRM DELETE
+========================================================= */
+
+function confirmDelete() {
+
+    if (
+        pendingDeleteChatID ===
+        null
+    ) {
+
+        return;
+
+    }
+
+
+    const id =
+        String(
+            pendingDeleteChatID
+        );
+
+
+    /*
+       Find the chat using the exact ID.
+    */
+
+    const index =
+        chats.findIndex(
+            chat =>
+                String(
+                    chat.id
+                ) ===
+                id
+        );
+
+
+    /*
+       If it no longer exists, close the dialog
+       and rebuild the sidebar.
+    */
+
+    if (
+        index ===
+        -1
+    ) {
+
+        cancelDelete();
+
+        renderRecentChats();
+
+        return;
+
+    }
+
+
+    /*
+       Remove it from the actual JavaScript array.
+    */
+
+    chats.splice(
+        index,
+        1
+    );
+
+
+    /*
+       Immediately persist the updated array.
+    */
+
+    const saved =
+        saveChats();
+
+
+    /*
+       Remove the corresponding DOM element
+       immediately as well.
+    */
+
+    const wrapper =
+        document.querySelector(
+            `.recent-chat-wrapper[data-chat-id="${CSS.escape(id)}"]`
+        );
+
+
+    if (
+        wrapper
+    ) {
+
+        wrapper.remove();
+
+    }
+
+
+    /*
+       If this was the currently open chat,
+       clear the conversation.
+    */
+
+    if (
+        currentChat &&
+        String(
+            currentChat.id
+        ) ===
+        id
+    ) {
+
+        currentChat =
+            null;
+
+
+        document
+            .getElementById(
+                "messages"
+            )
+            .replaceChildren();
+
+
+        document
+            .getElementById(
+                "messageInput"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "chatView"
+            )
+            .classList
+            .add(
+                "empty"
+            );
+
+
+        document
+            .getElementById(
+                "homeGreeting"
+            )
+            .style
+            .display =
+            "block";
+
+
+        document
+            .getElementById(
+                "greetingText"
+            )
+            .textContent =
+            randomGreeting();
+
+
+        resizeInput();
+
+        updateSendButton();
+
+    }
+
+
+    /*
+       Final consistency check:
+       Rebuild the sidebar from the actual array.
+    */
+
+    renderRecentChats();
+
+
+    cancelDelete();
+
+
+    if (
+        saved
+    ) {
+
+        showToast(
+            "Chat deleted"
+        );
+
+    } else {
+
+        showToast(
+            "Chat removed for this session"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN CHAT
+========================================================= */
+
+function openChat(
+    chatID
+) {
+
+    const id =
+        String(
+            chatID
+        );
+
+
+    const chat =
+        chats.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                id
+        );
+
+
+    if (
+        !chat
+    ) {
 
         return;
 
@@ -3234,8 +3498,7 @@ function openChat(
         .getElementById(
             "messages"
         )
-        .innerHTML =
-        "";
+        .replaceChildren();
 
 
     currentChat.messages
@@ -3279,7 +3542,7 @@ function openChat(
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
 document
     .getElementById(
@@ -3309,8 +3572,7 @@ function renderSearch() {
             );
 
 
-    results.innerHTML =
-        "";
+    results.replaceChildren();
 
 
     const matches =
@@ -3319,7 +3581,10 @@ function renderSearch() {
 
                 !query ||
 
-                chat.title
+                (
+                    chat.title ||
+                    ""
+                )
                     .toLowerCase()
                     .includes(
                         query
@@ -3328,7 +3593,10 @@ function renderSearch() {
                 chat.messages.some(
                     message =>
 
-                        message.content
+                        (
+                            message.content ||
+                            ""
+                        )
                             .toLowerCase()
                             .includes(
                                 query
@@ -3458,7 +3726,7 @@ function renderSearch() {
 
 /* =========================================================
    NOTES
-   ========================================================= */
+========================================================= */
 
 function newNote() {
 
@@ -3536,7 +3804,7 @@ function saveNote() {
     } else {
 
         currentNote =
-            Date.now();
+            createID();
 
 
         notes.unshift({
@@ -3610,7 +3878,7 @@ function renderNotes() {
 
 /* =========================================================
    STACK
-   ========================================================= */
+========================================================= */
 
 function renderFiles() {
 
@@ -3621,8 +3889,7 @@ function renderFiles() {
             );
 
 
-    list.innerHTML =
-        "";
+    list.replaceChildren();
 
 
     Object.keys(
@@ -3639,6 +3906,7 @@ function renderFiles() {
 
             item.className =
                 "file-item" +
+
                 (
                     name ===
                     currentFile
@@ -3867,7 +4135,7 @@ Please review this code and help me improve, debug, or explain it.`;
         currentChat = {
 
             id:
-                Date.now(),
+                createID(),
 
             title:
                 "Stack session",
@@ -3898,8 +4166,7 @@ Please review this code and help me improve, debug, or explain it.`;
         .getElementById(
             "messages"
         )
-        .innerHTML =
-        "";
+        .replaceChildren();
 
 
     appendMessage(
@@ -3939,7 +4206,7 @@ Please review this code and help me improve, debug, or explain it.`;
 
 /* =========================================================
    SETTINGS
-   ========================================================= */
+========================================================= */
 
 function openSettings() {
 
@@ -4004,7 +4271,7 @@ function saveSettings() {
 
 /* =========================================================
    TOAST
-   ========================================================= */
+========================================================= */
 
 function showToast(
     message
@@ -4047,8 +4314,8 @@ function showToast(
 
 
 /* =========================================================
-   BACKDROP
-   ========================================================= */
+   OVERLAY EVENTS
+========================================================= */
 
 document
     .getElementById(
@@ -4083,9 +4350,79 @@ document
     );
 
 
+document
+    .getElementById(
+        "deleteOverlay"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                document.getElementById(
+                    "deleteOverlay"
+                )
+            ) {
+
+                cancelDelete();
+
+            }
+
+        }
+    );
+
+
+document
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                if (
+                    document
+                        .getElementById(
+                            "deleteOverlay"
+                        )
+                        .classList
+                        .contains(
+                            "show"
+                        )
+                ) {
+
+                    cancelDelete();
+
+                }
+
+
+                if (
+                    document
+                        .getElementById(
+                            "settingsOverlay"
+                        )
+                        .classList
+                        .contains(
+                            "show"
+                        )
+                ) {
+
+                    closeSettings();
+
+                }
+
+            }
+
+        }
+    );
+
+
 /* =========================================================
    STARTUP
-   ========================================================= */
+========================================================= */
 
 document
     .getElementById(
