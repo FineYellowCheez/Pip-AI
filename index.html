@@ -7,16 +7,15 @@
 
 <style>
 :root {
-    --bg: #212121;
-    --sidebar: #171717;
-    --sidebar-hover: #252525;
-    --surface: #2f2f2f;
-    --surface-hover: #3a3a3a;
-    --border: rgba(255,255,255,.09);
-    --text: #ececec;
-    --muted: #999;
-    --sidebar-width: 220px;
-    --sidebar-collapsed-width: 64px;
+    --background: #343434;
+    --sidebar: #292929;
+    --sidebar-hover: #3b3b3b;
+    --border: #474747;
+    --text: #f5f5f5;
+    --muted: #a5a5a5;
+    --composer: #f1f1f1;
+    --composer-text: #151515;
+    --user-message: #484848;
 }
 
 * {
@@ -32,58 +31,27 @@ body {
 }
 
 body {
-    background: var(--bg);
+    background: var(--background);
     color: var(--text);
     font-family:
+        Inter,
+        ui-sans-serif,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
-        Helvetica,
         Arial,
         sans-serif;
 }
 
 button,
 textarea,
-input,
-select {
-    font: inherit;
+input {
+    font-family: inherit;
 }
 
-button {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* =========================================================
-   MIST LOGO
-   Organic drifting fog / mist mark
-========================================================= */
-
-.mist-logo {
-    position: relative;
-    width: 38px;
-    height: 34px;
-    flex: 0 0 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ededed;
-}
-
-.mist-logo svg {
-    width: 38px;
-    height: 34px;
-    display: block;
-    overflow: visible;
-}
-
-/* =========================================================
-   APP
-========================================================= */
-
-#app {
-    width: 100%;
+.app {
+    width: 100vw;
     height: 100vh;
     display: flex;
     overflow: hidden;
@@ -93,150 +61,84 @@ button {
    SIDEBAR
 ========================================================= */
 
-#sidebar {
-    position: relative;
-    width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    max-width: var(--sidebar-width);
+.sidebar {
+    width: 270px;
+    min-width: 270px;
     height: 100vh;
-    flex: 0 0 var(--sidebar-width);
     background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    transition:
+        width .22s ease,
+        min-width .22s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+}
+
+.sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+    border-right: 0;
+}
+
+.sidebar-inner {
+    width: 270px;
+    height: 100%;
+    padding: 13px 11px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    overflow: hidden;
-    transition:
-        width .2s ease,
-        min-width .2s ease,
-        max-width .2s ease,
-        flex-basis .2s ease;
 }
 
-#sidebar.collapsed {
-    width: var(--sidebar-collapsed-width);
-    min-width: var(--sidebar-collapsed-width);
-    max-width: var(--sidebar-collapsed-width);
-    flex-basis: var(--sidebar-collapsed-width);
+/* =========================================================
+   MIST LOGO
+========================================================= */
+
+.brand {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    margin-bottom: 9px;
 }
 
-.sidebar-top {
+.mist-logo {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.mist-logo svg {
     width: 100%;
-    height: 42px;
-    flex: 0 0 42px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 8px;
+    height: 100%;
+    display: block;
 }
 
-.sidebar-brand {
-    height: 38px;
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 5px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: white;
-    cursor: pointer;
-    overflow: hidden;
+.mist-logo-shape {
+    fill: none;
+    stroke: #f5f5f5;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.sidebar-brand:hover {
-    background: var(--sidebar-hover);
-}
-
-.sidebar-brand-name {
-    font-size: 16px;
-    font-weight: 650;
-    white-space: nowrap;
-}
-
-.sidebar-collapse {
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #aaa;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.sidebar-collapse:hover {
-    background: var(--sidebar-hover);
-    color: white;
-}
-
-#sidebar-expand {
-    display: none;
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 8px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #aaa;
-    font-size: 23px;
-    cursor: pointer;
-}
-
-#sidebar-expand:hover {
-    background: var(--sidebar-hover);
-    color: white;
-}
-
-#sidebar.collapsed .sidebar-top {
-    justify-content: center;
-}
-
-#sidebar.collapsed .sidebar-brand {
-    flex: 0 0 38px;
-    width: 38px;
-    min-width: 38px;
-    padding: 0;
-    justify-content: center;
-}
-
-#sidebar.collapsed .sidebar-brand-name {
-    display: none;
-}
-
-#sidebar.collapsed .sidebar-collapse {
-    display: none;
-}
-
-#sidebar.collapsed #sidebar-expand {
-    display: flex;
-}
+/* =========================================================
+   SIDEBAR BUTTONS
+========================================================= */
 
 .sidebar-button {
     width: 100%;
-    height: 38px;
-    flex: 0 0 38px;
+    min-height: 43px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0 10px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #d5d5d5;
-    font-size: 13px;
-    text-align: left;
+    gap: 13px;
+    padding: 10px 12px;
     cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
+    font-size: 14px;
+    text-align: left;
 }
 
 .sidebar-button:hover {
@@ -244,883 +146,775 @@ button {
 }
 
 .sidebar-icon {
-    width: 20px;
-    min-width: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ccc;
-    font-size: 17px;
-}
-
-.sidebar-text {
-    overflow: hidden;
-    white-space: nowrap;
+    width: 21px;
+    min-width: 21px;
+    height: 21px;
+    display: grid;
+    place-items: center;
+    color: #e8e8e8;
 }
 
 .sidebar-label {
-    flex: 0 0 auto;
-    padding: 15px 10px 6px;
-    color: #6f6f6f;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-}
-
-#sidebar.collapsed .sidebar-button {
-    justify-content: center;
-    padding: 0;
-}
-
-#sidebar.collapsed .sidebar-text,
-#sidebar.collapsed .sidebar-label {
-    display: none;
+    white-space: nowrap;
 }
 
 /* =========================================================
-   RECENT CHATS
+   CHAT LIST
 ========================================================= */
 
-#recentChats {
+.chat-list {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
+    margin-top: 17px;
+    padding: 0 3px;
 }
 
-.recent-chat-wrapper {
-    position: relative;
+.chat-list-title {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    padding: 0 9px 8px;
+}
+
+.chat-row {
     width: 100%;
-    height: 34px;
+    display: flex;
+    align-items: center;
+    border-radius: 9px;
     margin-bottom: 2px;
 }
 
-.recent-chat {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 34px;
-    display: block;
-    padding: 7px 36px 7px 10px;
+.chat-row:hover {
+    background: var(--sidebar-hover);
+}
+
+.chat-open {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    padding: 9px;
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    border-radius: 9px;
+}
+
+.delete-chat {
+    width: 31px;
+    height: 31px;
+    margin-right: 3px;
     border: 0;
     border-radius: 7px;
     background: transparent;
     color: #999;
-    font-size: 12px;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     cursor: pointer;
-}
-
-.recent-chat:hover {
-    background: var(--sidebar-hover);
-    color: #eee;
-}
-
-.delete-chat-button {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    z-index: 3;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    color: #888;
-    font-size: 17px;
-    line-height: 1;
     opacity: 0;
-    cursor: pointer;
+    display: grid;
+    place-items: center;
 }
 
-.recent-chat-wrapper:hover .delete-chat-button,
-.delete-chat-button:focus {
+.chat-row:hover .delete-chat {
     opacity: 1;
 }
 
-.delete-chat-button:hover {
-    background: #444;
-    color: #fff;
+.delete-chat:hover {
+    background: #4c4c4c;
+    color: white;
 }
 
-#sidebar.collapsed .recent-chat-wrapper {
-    display: none;
-}
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
 
 .sidebar-bottom {
-    flex: 0 0 auto;
-    padding-top: 8px;
-    margin-top: 8px;
     border-top: 1px solid var(--border);
+    padding-top: 9px;
+    margin-top: 9px;
 }
 
 /* =========================================================
    MAIN
 ========================================================= */
 
-#main {
-    position: relative;
+.main {
     flex: 1;
     min-width: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--bg);
-}
-
-#topbar {
-    height: 48px;
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    padding: 0 18px;
-    color: #888;
-    font-size: 13px;
-}
-
-#mobileMenu {
-    display: none;
-    width: 34px;
-    height: 34px;
-    margin-right: 7px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #ddd;
-    font-size: 19px;
-    cursor: pointer;
-}
-
-#mobileMenu:hover {
-    background: var(--surface);
-}
-
-.view {
-    display: none;
-    flex: 1;
-    min-height: 0;
-}
-
-.view.active {
-    display: flex;
+    background: var(--background);
+    position: relative;
 }
 
 /* =========================================================
-   CHAT
+   TOP BAR
 ========================================================= */
 
-#chatView {
-    position: relative;
-    flex-direction: column;
-    min-height: 0;
-}
-
-#messagesContainer {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 18px 20px 145px;
-}
-
-#messages {
-    width: min(760px, 100%);
-    margin: 0 auto;
-}
-
-.message {
+.topbar {
     width: 100%;
-    display: flex;
-    gap: 10px;
-    margin-bottom: 24px;
-}
-
-.message.user {
-    justify-content: flex-end;
-}
-
-.message.user .message-content {
-    max-width: 75%;
-    padding: 10px 13px;
-    background: #2f2f2f;
-    border-radius: 15px 15px 4px 15px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.message.assistant {
-    align-items: flex-start;
-}
-
-.message.assistant .message-content {
-    max-width: 85%;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.message-avatar {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
+    height: 54px;
+    min-height: 54px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 0 15px;
 }
 
-.message-avatar .mist-logo {
-    transform: scale(.8);
+.menu-button {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
 }
 
-#homeGreeting {
+.menu-button:hover {
+    background: #3d3d3d;
+}
+
+.menu-lines {
+    width: 18px;
+    height: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-lines span {
+    height: 1.5px;
+    width: 100%;
+    border-radius: 3px;
+    background: #ddd;
+}
+
+/* =========================================================
+   CHAT AREA
+========================================================= */
+
+.chat-area {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome {
+    width: min(680px, calc(100% - 40px));
     position: absolute;
     left: 50%;
-    top: 43%;
+    top: 46%;
     transform: translate(-50%, -50%);
-    width: min(700px, calc(100% - 40px));
     text-align: center;
-    pointer-events: none;
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
 }
 
-#homeGreeting h1 {
-    margin: 0;
-    color: #ececec;
-    font-size: 25px;
+.welcome.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -45%);
+}
+
+.greeting {
+    font-size: 27px;
     font-weight: 600;
-    letter-spacing: -.4px;
+    letter-spacing: -.025em;
+    margin-bottom: 25px;
 }
 
 /* =========================================================
    COMPOSER
 ========================================================= */
 
-#composerArea {
-    position: absolute;
-    left: 50%;
-    bottom: 20px;
-    transform: translateX(-50%);
-    width: min(700px, calc(100% - 32px));
-    z-index: 10;
-}
-
-#chatView.empty #composerArea {
-    top: 43%;
-    bottom: auto;
-    transform: translate(-50%, 45px);
-}
-
-#composer {
+.composer {
     width: 100%;
-    min-height: 58px;
+    min-height: 52px;
+    background: var(--composer);
+    border-radius: 26px;
     display: flex;
     align-items: flex-end;
-    padding: 9px;
-    background: #2f2f2f;
-    border: 1px solid #4b4b4b;
-    border-radius: 18px;
+    padding: 7px 9px 7px 17px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
 
-#addButton,
-#sendButton {
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#addButton {
-    background: transparent;
-    color: #ccc;
-    font-size: 23px;
-}
-
-#addButton:hover {
-    background: #414141;
-}
-
-#messageInput {
+.composer textarea {
     flex: 1;
     min-width: 0;
-    min-height: 38px;
-    max-height: 180px;
-    resize: none;
-    padding: 9px;
+    min-height: 37px;
+    max-height: 120px;
+    padding: 7px 8px;
     border: 0;
     outline: 0;
     background: transparent;
+    color: var(--composer-text);
+    resize: none;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.send-button {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: #202020;
     color: white;
-    font-size: 14px;
-    line-height: 1.4;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
 }
 
-#messageInput::placeholder {
-    color: #888;
-}
-
-#sendButton {
-    background: #eee;
-    color: #222;
-    font-size: 18px;
+.send-button:disabled {
     opacity: .35;
+    cursor: default;
 }
 
-#sendButton.ready {
-    opacity: 1;
-}
-
-#disclaimer {
-    margin-top: 7px;
-    color: #707070;
-    font-size: 10px;
-    text-align: center;
-}
-
-#chatView.empty #disclaimer {
-    display: none;
+.send-button svg {
+    width: 17px;
+    height: 17px;
 }
 
 /* =========================================================
-   PANELS
+   MESSAGES
 ========================================================= */
 
-.panel {
-    flex-direction: column;
-    padding: 28px 30px;
+.messages {
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    padding: 18px 20px 115px;
+    display: none;
 }
 
-.panel-inner {
-    width: min(850px, 100%);
-    margin: 0 auto;
+.messages.active {
+    display: block;
 }
 
-.panel-title {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 650;
+.message-row {
+    width: min(780px, 100%);
+    margin: 0 auto 22px;
+    display: flex;
+    gap: 10px;
 }
 
-.panel-subtitle {
-    margin: 5px 0 22px;
-    color: #999;
+.message-row.user {
+    justify-content: flex-end;
+}
+
+.message {
+    max-width: 78%;
+    padding: 11px 14px;
+    border-radius: 15px;
+    font-size: 15px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.message.user {
+    background: var(--user-message);
+}
+
+.message.assistant {
+    padding-left: 0;
+    background: transparent;
+}
+
+.assistant-logo {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    margin-top: 2px;
+}
+
+.assistant-logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================================
+   THINKING STATUS
+========================================================= */
+
+.thinking-row {
+    width: min(780px, 100%);
+    margin: 0 auto 22px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.thinking-logo {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    margin-top: 2px;
+}
+
+.thinking-logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+.thinking-content {
+    min-width: 0;
+    padding-top: 3px;
+}
+
+.thinking-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #c5c5c5;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.thinking-dots {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.thinking-dots span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #aaa;
+    animation: thinkingPulse 1.2s infinite ease-in-out;
+}
+
+.thinking-dots span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.thinking-dots span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes thinkingPulse {
+    0%,
+    60%,
+    100% {
+        opacity: .35;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+.thinking-status {
+    color: #909090;
     font-size: 13px;
+    line-height: 20px;
+    margin-top: 2px;
+    transition: opacity .15s ease;
+}
+
+/* =========================================================
+   TYPEWRITER CURSOR
+========================================================= */
+
+.typewriter-cursor::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 17px;
+    margin-left: 2px;
+    vertical-align: -3px;
+    background: #bdbdbd;
+    animation: cursorBlink .8s infinite;
+}
+
+@keyframes cursorBlink {
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   BOTTOM COMPOSER
+========================================================= */
+
+.bottom-composer {
+    display: none;
+    width: min(780px, calc(100% - 36px));
+    position: absolute;
+    left: 50%;
+    bottom: 17px;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.bottom-composer.active {
+    display: block;
+}
+
+/* =========================================================
+   TOOL OVERLAY
+========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.56);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.overlay.visible {
+    display: flex;
+}
+
+.modal {
+    width: min(760px, calc(100% - 32px));
+    max-height: calc(100vh - 40px);
+    background: #303030;
+    border: 1px solid #4b4b4b;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 70px rgba(0,0,0,.45);
+}
+
+.tool-header {
+    height: 55px;
+    min-height: 55px;
+    border-bottom: 1px solid #494949;
+    padding: 0 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tool-header h2 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.close-button {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #ddd;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.close-button:hover {
+    background: #444;
 }
 
 /* =========================================================
    SEARCH
 ========================================================= */
 
-#searchInput {
+.search-body {
+    padding: 18px;
+}
+
+.search-input {
     width: 100%;
-    height: 43px;
-    margin-bottom: 12px;
-    padding: 0 13px;
-    border: 1px solid #4a4a4a;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #505050;
     border-radius: 10px;
     outline: 0;
-    background: #2f2f2f;
-    color: white;
-    font-size: 13px;
+    background: #252525;
+    color: #eee;
+    font-size: 14px;
+}
+
+.search-input:focus {
+    border-color: #777;
+}
+
+.search-results {
+    max-height: 430px;
+    overflow-y: auto;
+    margin-top: 14px;
+}
+
+.search-empty {
+    color: #999;
+    font-size: 14px;
+    padding: 22px 5px;
+    text-align: center;
 }
 
 .search-result {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #eee;
     padding: 12px;
-    border-radius: 9px;
+    text-align: left;
+    cursor: pointer;
+    margin-bottom: 4px;
 }
 
 .search-result:hover {
-    background: #2b2b2b;
-}
-
-.search-result-info {
-    flex: 1;
-    min-width: 0;
+    background: #3d3d3d;
 }
 
 .search-result-title {
-    font-size: 13px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
-.search-result-date {
-    margin-top: 3px;
-    color: #777;
-    font-size: 10px;
+.search-result-preview {
+    color: #999;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* =========================================================
    NOTES
 ========================================================= */
 
-.notes-layout {
-    height: calc(100vh - 150px);
+.notes-modal {
+    width: min(760px, calc(100% - 32px));
+    height: min(650px, calc(100% - 40px));
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.note-toolbar {
-    display: flex;
-    gap: 8px;
-}
-
-#noteTitle {
+.notes-textarea {
     flex: 1;
-    min-width: 0;
-    height: 40px;
-    padding: 0 12px;
-    border: 1px solid #4a4a4a;
-    border-radius: 9px;
+    min-height: 0;
+    border: 0;
     outline: 0;
-    background: #2f2f2f;
-    color: white;
-}
-
-#noteEditor {
-    flex: 1;
-    min-height: 300px;
     resize: none;
-    padding: 15px;
-    border: 1px solid #4a4a4a;
-    border-radius: 10px;
-    outline: 0;
-    background: #2f2f2f;
-    color: white;
-    font-size: 14px;
-    line-height: 1.6;
+    background: #292929;
+    color: #eee;
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.65;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.button {
-    padding: 9px 12px;
-    border: 1px solid #4a4a4a;
-    border-radius: 8px;
-    background: #2f2f2f;
-    color: #ddd;
+.notes-status {
+    padding: 8px 18px;
+    border-top: 1px solid #444;
+    color: #888;
     font-size: 12px;
-    cursor: pointer;
-}
-
-.button:hover {
-    background: #3a3a3a;
-}
-
-.button.primary {
-    background: #eee;
-    border-color: #eee;
-    color: #222;
-    font-weight: 600;
 }
 
 /* =========================================================
    STACK
 ========================================================= */
 
-#stackView {
-    padding: 18px 20px;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.stack-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-}
-
-.stack-header h1 {
-    margin: 0;
-    font-size: 21px;
-}
-
-.stack-header p {
-    margin: 4px 0 0;
-    color: #888;
-    font-size: 11px;
-}
-
-.stack-actions {
-    display: flex;
-    gap: 7px;
-}
-
-.stack-workspace {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 10px;
-}
-
-.file-panel,
-.editor-panel {
-    min-height: 0;
-    overflow: hidden;
-    background: #1b1b1b;
-    border: 1px solid #363636;
-    border-radius: 10px;
-}
-
-.file-panel {
+.stack-modal {
+    width: min(1000px, calc(100% - 32px));
+    height: min(760px, calc(100% - 32px));
     display: flex;
     flex-direction: column;
 }
 
-.panel-header,
-.editor-header {
-    height: 39px;
-    min-height: 39px;
-    display: flex;
-    align-items: center;
-    padding: 0 11px;
-    border-bottom: 1px solid #363636;
-    color: #bbb;
-    font-size: 11px;
-}
-
-.file-list {
+.stack-content {
     flex: 1;
-    overflow-y: auto;
-    padding: 6px;
-}
-
-.file-item {
-    padding: 7px 8px;
-    border-radius: 6px;
-    color: #aaa;
-    font-family: Consolas, Monaco, monospace;
-    font-size: 11px;
-    cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.file-item:hover,
-.file-item.active {
-    background: #303030;
-    color: white;
-}
-
-.editor-panel {
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
 
-.editor-header {
-    justify-content: space-between;
-}
-
-#codeEditor {
-    flex: 1;
-    width: 100%;
-    min-height: 0;
-    resize: none;
-    padding: 14px;
-    border: 0;
-    outline: 0;
-    background: #171717;
-    color: #ddd;
-    font-family: Consolas, Monaco, monospace;
-    font-size: 12px;
-    line-height: 1.55;
-}
-
-#stackOutput {
-    height: 80px;
-    min-height: 80px;
-    padding: 9px;
-    border-top: 1px solid #363636;
-    background: #111;
-    color: #999;
-    font: 11px monospace;
-    overflow: auto;
-}
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-#settingsOverlay {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(0,0,0,.65);
-}
-
-#settingsOverlay.show {
+.stack-tabs {
     display: flex;
+    gap: 5px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #444;
 }
 
-.settings-modal {
-    width: min(470px, 100%);
-    background: #252525;
-    border: 1px solid #444;
-    border-radius: 12px;
-    box-shadow: 0 20px 70px #000;
-}
-
-.settings-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    border-bottom: 1px solid #3b3b3b;
-}
-
-.close-button {
+.stack-tab {
     border: 0;
     background: transparent;
     color: #aaa;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.settings-body {
-    padding: 16px;
-}
-
-.settings-label {
-    display: block;
-    margin-bottom: 6px;
-    color: #999;
-    font-size: 11px;
-}
-
-#personalitySetting {
-    width: 100%;
-    height: 38px;
-    padding: 0 10px;
-    border: 1px solid #444;
     border-radius: 7px;
-    outline: 0;
-    background: #1b1b1b;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.stack-tab:hover,
+.stack-tab.active {
+    background: #444;
     color: white;
 }
 
-.settings-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
-    padding: 12px 16px;
-    border-top: 1px solid #3b3b3b;
+.stack-editor-area {
+    flex: 1;
+    min-height: 0;
+    padding: 12px;
 }
 
-/* =========================================================
-   DELETE CONFIRMATION
-========================================================= */
-
-#deleteOverlay {
-    position: fixed;
-    inset: 0;
-    z-index: 150;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(0,0,0,.65);
-}
-
-#deleteOverlay.show {
-    display: flex;
-}
-
-.delete-modal {
-    width: min(360px, 100%);
-    padding: 20px;
-    background: #292929;
-    border: 1px solid #454545;
-    border-radius: 13px;
-    box-shadow: 0 25px 80px rgba(0,0,0,.6);
-}
-
-.delete-modal h2 {
-    margin: 0 0 7px;
-    font-size: 17px;
-}
-
-.delete-modal p {
-    margin: 0;
-    color: #999;
+.stack-editor {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    resize: none;
+    border: 1px solid #494949;
+    border-radius: 10px;
+    background: #202020;
+    color: #e8e8e8;
+    padding: 14px;
+    outline: none;
+    font-family:
+        "Cascadia Code",
+        "SFMono-Regular",
+        Consolas,
+        monospace;
     font-size: 13px;
-    line-height: 1.5;
-    word-break: break-word;
+    line-height: 1.55;
 }
 
-.delete-modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 20px;
+.stack-editor:focus {
+    border-color: #6a6a6a;
 }
 
-.delete-confirm-button {
-    padding: 9px 13px;
-    border: 0;
-    border-radius: 8px;
-    background: #e8e8e8;
-    color: #222;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.delete-confirm-button:hover {
+.stack-preview {
+    display: none;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    border: 1px solid #494949;
+    border-radius: 10px;
     background: white;
 }
 
-/* =========================================================
-   TOAST
-========================================================= */
-
-#toast {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 200;
-    padding: 9px 13px;
-    border-radius: 7px;
-    background: #eee;
-    color: #111;
-    font-size: 12px;
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition:
-        opacity .2s ease,
-        transform .2s ease;
+.stack-bottom {
+    height: 55px;
+    min-height: 55px;
+    border-top: 1px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 12px;
+    gap: 8px;
 }
 
-#toast.show {
-    opacity: 1;
-    transform: translateY(0);
+.stack-button-action {
+    border: 1px solid #555;
+    background: #414141;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+.stack-button-action:hover {
+    background: #4b4b4b;
+}
+
+/* =========================================================
+   DELETE MODAL
+========================================================= */
+
+.delete-modal {
+    width: min(450px, calc(100% - 32px));
+    padding: 20px;
+}
+
+.delete-modal h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.delete-modal p {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.modal-button {
+    padding: 9px 14px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: #3e3e3e;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-button:hover {
+    background: #494949;
+}
+
+.modal-button.delete {
+    background: #a83c3c;
+    border-color: #b34b4b;
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-#sidebarBackdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    background: rgba(0,0,0,.55);
-}
+@media (max-width: 700px) {
 
-@media (max-width: 750px) {
-
-    #sidebar {
-        position: fixed;
-        top: 0;
+    .sidebar {
+        position: absolute;
         left: 0;
-        bottom: 0;
-        z-index: 50;
-        width: 220px;
-        min-width: 220px;
-        max-width: 220px;
-        flex-basis: 220px;
-        transform: translateX(-100%);
-        transition: transform .2s ease;
+        top: 0;
+        box-shadow: 12px 0 40px rgba(0,0,0,.3);
     }
 
-    #sidebar.mobile-open {
-        transform: translateX(0);
-    }
-
-    #sidebar.collapsed {
-        width: 220px;
-        min-width: 220px;
-        max-width: 220px;
-        flex-basis: 220px;
-    }
-
-    #sidebar.collapsed .sidebar-brand {
-        flex: 1;
-        width: auto;
+    .sidebar.collapsed {
+        width: 0;
         min-width: 0;
-        justify-content: flex-start;
-        padding: 0 5px;
     }
 
-    #sidebar.collapsed .sidebar-brand-name {
-        display: inline;
+    .greeting {
+        font-size: 24px;
     }
 
-    #sidebar.collapsed .sidebar-button {
-        justify-content: flex-start;
-        padding: 0 10px;
+    .welcome {
+        top: 43%;
     }
 
-    #sidebar.collapsed .sidebar-text {
-        display: inline;
+    .message {
+        max-width: 86%;
     }
 
-    #sidebar.collapsed .sidebar-label {
-        display: block;
-    }
-
-    #sidebar.collapsed #recentChats {
-        display: block;
-    }
-
-    #sidebar.collapsed .sidebar-collapse {
-        display: flex;
-    }
-
-    #sidebar.collapsed #sidebar-expand {
-        display: none;
-    }
-
-    #sidebarBackdrop.show {
-        display: block;
-    }
-
-    #mobileMenu {
-        display: block;
-    }
-
-    .stack-workspace {
-        grid-template-columns: 1fr;
-    }
-
-    .file-panel {
-        height: 130px;
-    }
-
-    #homeGreeting h1 {
-        font-size: 23px;
-    }
-
-    #composerArea,
-    #chatView.empty #composerArea {
-        width: calc(100% - 24px);
-    }
-
-    .panel {
-        padding: 22px 16px;
+    .stack-modal {
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
     }
 }
 </style>
@@ -1128,419 +922,210 @@ button {
 
 <body>
 
-<div id="app">
+<div class="app">
 
-<!-- =====================================================
-     SIDEBAR
-====================================================== -->
+<aside class="sidebar" id="sidebar">
 
-<aside id="sidebar">
+    <div class="sidebar-inner">
 
-    <div class="sidebar-top">
+        <div class="brand">
 
-        <button
-            class="sidebar-brand"
-            onclick="newChat()"
-            aria-label="New chat"
-        >
+            <div class="mist-logo">
 
-            <!-- Mist's logo is only shown in the sidebar -->
-            <div class="mist-logo" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
 
-                <svg
-                    viewBox="0 0 64 48"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-
-                    <!-- soft upper fog cloud -->
                     <path
+                        class="mist-logo-shape"
                         d="
-                            M7 24
-                            C4 20, 7 15, 12 15
-                            C13 9, 19 7, 24 10
-                            C28 6, 36 7, 39 12
-                            C45 10, 51 13, 51 18
-                            C57 17, 61 20, 59 25
+                            M48 18
+                            C41 8 27 6 17 14
+                            C7 22 7 37 16 47
+                            C25 57 41 56 49 46
+                            C54 40 55 32 52 25
+                            L52 39
                         "
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        opacity=".95"
                     />
 
-                    <!-- main drifting fog -->
                     <path
+                        class="mist-logo-shape"
                         d="
-                            M6 28
-                            C13 24, 18 27, 23 29
-                            C29 32, 35 31, 40 27
-                            C46 23, 52 24, 58 28
+                            M45 34
+                            L52 41
+                            L59 34
                         "
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                        opacity=".68"
-                    />
-
-                    <!-- fading mist tail -->
-                    <path
-                        d="
-                            M11 35
-                            C17 32, 23 33, 28 36
-                            C34 39, 40 38, 45 35
-                            C49 33, 53 33, 56 35
-                        "
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="3.5"
-                        stroke-linecap="round"
-                        opacity=".32"
-                    />
-
-                    <!-- tiny drifting particle -->
-                    <circle
-                        cx="55"
-                        cy="9"
-                        r="2"
-                        fill="currentColor"
-                        opacity=".4"
                     />
 
                 </svg>
 
             </div>
 
-            <span class="sidebar-brand-name">
-                Mist
-            </span>
-
-        </button>
-
-        <button
-            class="sidebar-collapse"
-            onclick="toggleSidebar()"
-            aria-label="Collapse sidebar"
-        >
-            ‹
-        </button>
-
-    </div>
-
-    <button
-        id="sidebar-expand"
-        onclick="toggleSidebar()"
-        aria-label="Expand sidebar"
-    >
-        ›
-    </button>
-
-    <button
-        class="sidebar-button"
-        onclick="newChat()"
-    >
-        <span class="sidebar-icon">✎</span>
-        <span class="sidebar-text">New chat</span>
-    </button>
-
-    <button
-        class="sidebar-button"
-        onclick="showView('search')"
-    >
-        <span class="sidebar-icon">⌕</span>
-        <span class="sidebar-text">Search chats</span>
-    </button>
-
-    <div class="sidebar-label">
-        Workspace
-    </div>
-
-    <button
-        class="sidebar-button"
-        onclick="showView('notes')"
-    >
-        <span class="sidebar-icon">▤</span>
-        <span class="sidebar-text">Notes</span>
-    </button>
-
-    <button
-        class="sidebar-button"
-        onclick="showView('stack')"
-    >
-        <span
-            class="sidebar-icon"
-            style="font-family:monospace;font-size:12px"
-        >&gt;_</span>
-        <span class="sidebar-text">Stack</span>
-    </button>
-
-    <div class="sidebar-label">
-        Recent
-    </div>
-
-    <!--
-        IMPORTANT:
-        Delete buttons are dynamically created here.
-        Event delegation is attached in JavaScript
-        to this parent element.
-    -->
-    <div id="recentChats"></div>
-
-    <div class="sidebar-bottom">
+        </div>
 
         <button
             class="sidebar-button"
-            onclick="openSettings()"
+            id="newChatButton"
         >
-            <span class="sidebar-icon">⚙</span>
-            <span class="sidebar-text">Settings</span>
+            <span class="sidebar-icon">✎</span>
+            <span class="sidebar-label">New Chat</span>
         </button>
+
+        <button
+            class="sidebar-button"
+            id="searchButton"
+        >
+            <span class="sidebar-icon">⌕</span>
+            <span class="sidebar-label">Search Chats</span>
+        </button>
+
+        <button
+            class="sidebar-button"
+            id="notesButton"
+        >
+            <span class="sidebar-icon">▱</span>
+            <span class="sidebar-label">Notes</span>
+        </button>
+
+        <button
+            class="sidebar-button"
+            id="stackButton"
+        >
+            <span class="sidebar-icon">&gt;_</span>
+            <span class="sidebar-label">Stack</span>
+        </button>
+
+        <div class="chat-list">
+
+            <div class="chat-list-title">
+                Chats
+            </div>
+
+            <div id="chatList"></div>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="sidebar-button"
+                id="settingsButton"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span class="sidebar-label">Settings</span>
+            </button>
+
+        </div>
 
     </div>
 
 </aside>
 
-<div id="sidebarBackdrop"></div>
 
-<!-- =====================================================
-     MAIN
-====================================================== -->
+<main class="main">
 
-<main id="main">
-
-    <div id="topbar">
+    <header class="topbar">
 
         <button
-            id="mobileMenu"
-            onclick="toggleMobileSidebar()"
+            class="menu-button"
+            id="menuButton"
+            aria-label="Toggle sidebar"
         >
-            ☰
+
+            <span class="menu-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+
         </button>
 
-        <span id="status"></span>
+    </header>
 
-    </div>
 
-    <!-- CHAT -->
+    <section class="chat-area">
 
-    <section
-        id="chatView"
-        class="view active empty"
-    >
+        <div
+            class="welcome"
+            id="welcome"
+        >
 
-        <div id="messagesContainer">
-            <div id="messages"></div>
-        </div>
-
-        <div id="homeGreeting">
-            <h1 id="greetingText">
-                What's on your mind?
-            </h1>
-        </div>
-
-        <div id="composerArea">
-
-            <div id="composer">
-
-                <button
-                    id="addButton"
-                    onclick="focusInput()"
-                >
-                    ＋
-                </button>
-
-                <textarea
-                    id="messageInput"
-                    rows="1"
-                    placeholder="Message Mist…"
-                ></textarea>
-
-                <button
-                    id="sendButton"
-                    onclick="sendMessage()"
-                    disabled
-                >
-                    ↑
-                </button>
-
-            </div>
-
-            <div id="disclaimer">
-                Mist can make mistakes.
-                Check important information.
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SEARCH -->
-
-    <section
-        id="searchView"
-        class="view panel"
-    >
-
-        <div class="panel-inner">
-
-            <h1 class="panel-title">
-                Search chats
-            </h1>
-
-            <p class="panel-subtitle">
-                Search through your conversations.
-            </p>
-
-            <input
-                id="searchInput"
-                placeholder="Search chats…"
+            <div
+                class="greeting"
+                id="greeting"
             >
+                What's on your mind?
+            </div>
 
-            <div id="searchResults"></div>
-
-        </div>
-
-    </section>
-
-    <!-- NOTES -->
-
-    <section
-        id="notesView"
-        class="view panel"
-    >
-
-        <div class="panel-inner">
-
-            <h1 class="panel-title">
-                Notes
-            </h1>
-
-            <p class="panel-subtitle">
-                A simple place to remember ideas,
-                plans, and things you want to do.
-            </p>
-
-            <div class="notes-layout">
-
-                <div class="note-toolbar">
-
-                    <input
-                        id="noteTitle"
-                        placeholder="Note title…"
-                    >
-
-                    <button
-                        class="button"
-                        onclick="newNote()"
-                    >
-                        New
-                    </button>
-
-                    <button
-                        class="button primary"
-                        onclick="saveNote()"
-                    >
-                        Save
-                    </button>
-
-                </div>
+            <div class="composer">
 
                 <textarea
-                    id="noteEditor"
-                    placeholder="Start writing…"
+                    id="centerInput"
+                    rows="1"
+                    placeholder="Message..."
+                    aria-label="Message"
                 ></textarea>
 
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- STACK -->
-
-    <section
-        id="stackView"
-        class="view"
-    >
-
-        <div class="stack-header">
-
-            <div>
-
-                <h1>Stack</h1>
-
-                <p>
-                    Mist's coding workspace
-                </p>
-
-            </div>
-
-            <div class="stack-actions">
-
                 <button
-                    class="button"
-                    onclick="newFile()"
+                    class="send-button"
+                    id="centerSend"
+                    disabled
+                    aria-label="Send"
                 >
-                    ＋ File
-                </button>
 
-                <button
-                    class="button"
-                    onclick="askMistFromStack()"
-                >
-                    Ask Mist
-                </button>
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                    >
+                        <path d="M12 19V5"></path>
+                        <path d="M6.5 11.5L12 6L17.5 11.5"></path>
+                    </svg>
 
-                <button
-                    class="button primary"
-                    onclick="runCode()"
-                >
-                    Run
                 </button>
 
             </div>
 
         </div>
 
-        <div class="stack-workspace">
 
-            <div class="file-panel">
+        <div
+            class="messages"
+            id="messages"
+        ></div>
 
-                <div class="panel-header">
-                    Project files
-                </div>
 
-                <div
-                    class="file-list"
-                    id="fileList"
-                ></div>
+        <div
+            class="bottom-composer"
+            id="bottomComposer"
+        >
 
-            </div>
-
-            <div class="editor-panel">
-
-                <div class="editor-header">
-
-                    <span id="currentFileName">
-                        index.html
-                    </span>
-
-                    <span>
-                        Stack
-                    </span>
-
-                </div>
+            <div class="composer">
 
                 <textarea
-                    id="codeEditor"
-                    spellcheck="false"
+                    id="bottomInput"
+                    rows="1"
+                    placeholder="Message..."
+                    aria-label="Message"
                 ></textarea>
 
-                <div id="stackOutput">
-                    Output will appear here.
-                </div>
+                <button
+                    class="send-button"
+                    id="bottomSend"
+                    disabled
+                    aria-label="Send"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                    >
+                        <path d="M12 19V5"></path>
+                        <path d="M6.5 11.5L12 6L17.5 11.5"></path>
+                    </svg>
+
+                </button>
 
             </div>
 
@@ -1552,111 +1137,36 @@ button {
 
 </div>
 
-<!-- =====================================================
-     SETTINGS
-====================================================== -->
 
-<div id="settingsOverlay">
+<!-- DELETE -->
 
-    <div class="settings-modal">
+<div
+    class="overlay"
+    id="deleteOverlay"
+>
 
-        <div class="settings-header">
-
-            <strong>
-                Mist settings
-            </strong>
-
-            <button
-                class="close-button"
-                onclick="closeSettings()"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div class="settings-body">
-
-            <label class="settings-label">
-                Personality
-            </label>
-
-            <select id="personalitySetting">
-
-                <option value="balanced">
-                    Balanced
-                </option>
-
-                <option value="creative">
-                    Creative
-                </option>
-
-                <option value="analytical">
-                    Analytical
-                </option>
-
-                <option value="coding">
-                    Coding-focused
-                </option>
-
-            </select>
-
-        </div>
-
-        <div class="settings-footer">
-
-            <button
-                class="button"
-                onclick="closeSettings()"
-            >
-                Cancel
-            </button>
-
-            <button
-                class="button primary"
-                onclick="saveSettings()"
-            >
-                Save
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =====================================================
-     DELETE CONFIRMATION
-====================================================== -->
-
-<div id="deleteOverlay">
-
-    <div
-        class="delete-modal"
-        role="dialog"
-        aria-modal="true"
-    >
+    <div class="modal delete-modal">
 
         <h2>
-            Delete this chat?
+            Delete chat?
         </h2>
 
-        <p id="deleteMessage">
-            This conversation will be permanently removed.
+        <p>
+            This will permanently remove this chat from this browser.
         </p>
 
-        <div class="delete-modal-actions">
+        <div class="modal-actions">
 
             <button
-                class="button"
-                onclick="cancelDelete()"
+                class="modal-button"
+                id="cancelDelete"
             >
                 Cancel
             </button>
 
             <button
-                class="delete-confirm-button"
-                onclick="confirmDelete()"
+                class="modal-button delete"
+                id="confirmDelete"
             >
                 Delete
             </button>
@@ -1667,233 +1177,374 @@ button {
 
 </div>
 
-<div id="toast"></div>
+
+<!-- SEARCH -->
+
+<div
+    class="overlay"
+    id="searchOverlay"
+>
+
+    <div class="modal">
+
+        <div class="tool-header">
+
+            <h2>
+                Search Chats
+            </h2>
+
+            <button
+                class="close-button"
+                id="closeSearch"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="search-body">
+
+            <input
+                class="search-input"
+                id="searchInput"
+                placeholder="Search your conversations..."
+                autocomplete="off"
+            >
+
+            <div
+                class="search-results"
+                id="searchResults"
+            >
+
+                <div class="search-empty">
+                    Start typing to search your chats.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- NOTES -->
+
+<div
+    class="overlay"
+    id="notesOverlay"
+>
+
+    <div class="modal notes-modal">
+
+        <div class="tool-header">
+
+            <h2>
+                Notes
+            </h2>
+
+            <button
+                class="close-button"
+                id="closeNotes"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <textarea
+            class="notes-textarea"
+            id="notesTextarea"
+            placeholder="Write something you want to remember..."
+        ></textarea>
+
+        <div class="notes-status">
+            Saved automatically in this browser.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- STACK -->
+
+<div
+    class="overlay"
+    id="stackOverlay"
+>
+
+    <div class="modal stack-modal">
+
+        <div class="tool-header">
+
+            <h2>
+                Stack
+            </h2>
+
+            <button
+                class="close-button"
+                id="closeStack"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="stack-content">
+
+            <div class="stack-tabs">
+
+                <button
+                    class="stack-tab active"
+                    data-language="html"
+                >
+                    HTML
+                </button>
+
+                <button
+                    class="stack-tab"
+                    data-language="css"
+                >
+                    CSS
+                </button>
+
+                <button
+                    class="stack-tab"
+                    data-language="js"
+                >
+                    JavaScript
+                </button>
+
+                <button
+                    class="stack-tab"
+                    data-language="preview"
+                >
+                    Preview
+                </button>
+
+            </div>
+
+            <div class="stack-editor-area">
+
+                <textarea
+                    class="stack-editor"
+                    id="stackEditor"
+                    spellcheck="false"
+                ></textarea>
+
+                <iframe
+                    class="stack-preview"
+                    id="stackPreview"
+                    sandbox="allow-scripts"
+                ></iframe>
+
+            </div>
+
+            <div class="stack-bottom">
+
+                <button
+                    class="stack-button-action"
+                    id="stackClear"
+                >
+                    Clear
+                </button>
+
+                <button
+                    class="stack-button-action"
+                    id="stackRun"
+                >
+                    Run
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <script>
 
 /* =========================================================
-   GROQ CONFIGURATION
+   GROQ API CONFIGURATION
 
-   PUT YOUR GROQ API KEY BETWEEN THE QUOTES.
+   PUT YOUR GROQ API KEY HERE.
+
+   Example:
+
+   const GROQ_API_KEY = "gsk_your_key_here";
 
    WARNING:
-   A key placed in a GitHub Pages HTML file is visible
-   to visitors. For a real public deployment, use a
-   server-side proxy or serverless function.
+   Client-side API keys are visible to visitors.
 ========================================================= */
 
-const GROQ_API_KEY =
-    "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";
-
-
-/*
-   Internal model configuration.
-   This is deliberately not displayed in the interface.
-*/
+const GROQ_API_KEY = "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";
 
 const GROQ_MODEL =
     "llama-3.3-70b-versatile";
 
-
-const GROQ_URL =
+const GROQ_ENDPOINT =
     "https://api.groq.com/openai/v1/chat/completions";
 
 
 /* =========================================================
-   SYSTEM PROMPT
+   STORAGE
 ========================================================= */
 
-const SYSTEM_PROMPT = `
+const CHAT_STORAGE_KEY =
+    "mist_chats_v4";
 
-You are Mist, an AI assistant.
+const NOTES_STORAGE_KEY =
+    "mist_notes_v4";
 
-Your name is Mist.
 
-You are thoughtful, helpful, curious,
-creative, practical, and direct.
+let chats =
+    loadChats();
 
-You help users with programming,
-writing, planning, brainstorming,
-research, problem solving, and learning.
+let currentChatId =
+    null;
 
-Be honest about your limitations.
-
-When helping with programming,
-provide complete and useful code
-when appropriate.
-
-`;
+let chatPendingDeletion =
+    null;
 
 
 /* =========================================================
    GREETINGS
 ========================================================= */
 
-const GREETINGS = [
+const greetings = [
 
     "What's on your mind?",
 
-    "How can I help?",
+    "What can I help you with?",
+
+    "Where should we begin?",
 
     "What are you thinking about?",
 
-    "What would you like to work on?",
-
-    "Where should we start?",
-
-    "What can I help you figure out?",
-
-    "What are we working on today?",
-
-    "What's happening?",
-
-    "Got something on your mind?",
+    "How can I help?",
 
     "What would you like to explore?",
 
-    "Ready when you are.",
+    "What shall we work on?",
 
-    "What are you curious about?",
+    "What brings you here today?",
 
-    "Let's get started."
+    "What would you like to talk about?"
 
 ];
 
 
-function randomGreeting() {
+/* =========================================================
+   USER-FACING THINKING STATUS
+========================================================= */
 
-    return GREETINGS[
-        Math.floor(
-            Math.random() *
-            GREETINGS.length
-        )
-    ];
+const thinkingStatuses = [
 
-}
+    "Analyzing your question…",
+
+    "Considering the best approach…",
+
+    "Putting the pieces together…",
+
+    "Formulating a response…",
+
+    "Preparing an answer…"
+
+];
 
 
 /* =========================================================
-   STATE
+   DOM
 ========================================================= */
 
-let chats =
-    loadJSON(
-        "mistChats",
-        []
+const sidebar =
+    document.getElementById(
+        "sidebar"
     );
 
-
-let notes =
-    loadJSON(
-        "mistNotes",
-        []
+const menuButton =
+    document.getElementById(
+        "menuButton"
     );
 
-
-let files =
-    loadJSON(
-        "mistFiles",
-        null
+const welcome =
+    document.getElementById(
+        "welcome"
     );
 
+const greeting =
+    document.getElementById(
+        "greeting"
+    );
 
-if (
-    !files ||
-    typeof files !== "object"
-) {
+const messages =
+    document.getElementById(
+        "messages"
+    );
 
-    files = {
+const bottomComposer =
+    document.getElementById(
+        "bottomComposer"
+    );
 
-        "index.html":
-`<!DOCTYPE html>
-<html>
-<head>
-    <title>Stack Project</title>
-</head>
-<body>
+const centerInput =
+    document.getElementById(
+        "centerInput"
+    );
 
-    <h1>Hello from Stack!</h1>
+const bottomInput =
+    document.getElementById(
+        "bottomInput"
+    );
 
-</body>
-</html>`
+const centerSend =
+    document.getElementById(
+        "centerSend"
+    );
 
-    };
+const bottomSend =
+    document.getElementById(
+        "bottomSend"
+    );
 
-}
-
-
-let currentFile =
-    Object.keys(
-        files
-    )[0];
-
-
-let currentChat =
-    null;
-
-
-let currentNote =
-    null;
-
-
-/*
-   Stores the ID of the chat that the user
-   has requested to delete.
-
-   The actual deletion does NOT happen until
-   confirmDelete() is called.
-*/
-
-let pendingDeleteChatID =
-    null;
+const chatList =
+    document.getElementById(
+        "chatList"
+    );
 
 
 /* =========================================================
-   LOCAL STORAGE
+   STORAGE
 ========================================================= */
 
-function loadJSON(
-    key,
-    fallback
-) {
+function loadChats() {
 
     try {
 
-        const value =
+        const saved =
             localStorage.getItem(
-                key
+                CHAT_STORAGE_KEY
             );
 
-
-        if (
-            value ===
-            null
-        ) {
-
-            return fallback;
-
+        if (!saved) {
+            return [];
         }
 
-
         const parsed =
-            JSON.parse(
-                value
-            );
+            JSON.parse(saved);
 
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
 
-        return parsed;
+    } catch {
 
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "Storage error:",
-            error
-        );
-
-
-        return fallback;
+        return [];
 
     }
 
@@ -1902,76 +1553,41 @@ function loadJSON(
 
 function saveChats() {
 
-    try {
-
-        localStorage.setItem(
-            "mistChats",
-            JSON.stringify(
-                chats
-            )
-        );
-
-        return true;
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "Could not save chats:",
-            error
-        );
-
-        return false;
-
-    }
+    localStorage.setItem(
+        CHAT_STORAGE_KEY,
+        JSON.stringify(chats)
+    );
 
 }
 
 
-function saveData() {
+function createId() {
 
-    try {
+    return (
+        Date.now().toString(36)
+        +
+        Math.random()
+            .toString(36)
+            .substring(2, 10)
+    );
 
-        localStorage.setItem(
-            "mistChats",
-            JSON.stringify(
-                chats
-            )
+}
+
+
+/* =========================================================
+   GREETING
+========================================================= */
+
+function setRandomGreeting() {
+
+    const index =
+        Math.floor(
+            Math.random() *
+            greetings.length
         );
 
-
-        localStorage.setItem(
-            "mistNotes",
-            JSON.stringify(
-                notes
-            )
-        );
-
-
-        localStorage.setItem(
-            "mistFiles",
-            JSON.stringify(
-                files
-            )
-        );
-
-
-        return true;
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "Could not save data:",
-            error
-        );
-
-
-        return false;
-
-    }
+    greeting.textContent =
+        greetings[index];
 
 }
 
@@ -1980,354 +1596,248 @@ function saveData() {
    SIDEBAR
 ========================================================= */
 
-function toggleSidebar() {
+menuButton.addEventListener(
+    "click",
+    () => {
 
-    const sidebar =
-        document.getElementById(
-            "sidebar"
-        );
-
-
-    const isCollapsed =
         sidebar.classList.toggle(
             "collapsed"
         );
 
-
-    localStorage.setItem(
-        "mistSidebarCollapsed",
-        isCollapsed
-            ? "1"
-            : "0"
-    );
-
-}
-
-
-/* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
-
-function toggleMobileSidebar() {
-
-    const sidebar =
-        document.getElementById(
-            "sidebar"
-        );
-
-
-    const backdrop =
-        document.getElementById(
-            "sidebarBackdrop"
-        );
-
-
-    sidebar.classList.toggle(
-        "mobile-open"
-    );
-
-
-    backdrop.classList.toggle(
-        "show"
-    );
-
-}
-
-
-function closeMobileSidebar() {
-
-    document
-        .getElementById(
-            "sidebar"
-        )
-        .classList
-        .remove(
-            "mobile-open"
-        );
-
-
-    document
-        .getElementById(
-            "sidebarBackdrop"
-        )
-        .classList
-        .remove(
-            "show"
-        );
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function showView(
-    name
-) {
-
-    document
-        .querySelectorAll(
-            ".view"
-        )
-        .forEach(
-            view => {
-
-                view.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    const target =
-        document.getElementById(
-            name +
-            "View"
-        );
-
-
-    if (!target) {
-
-        return;
-
     }
-
-
-    target.classList.add(
-        "active"
-    );
-
-
-    closeMobileSidebar();
-
-
-    if (
-        name ===
-        "search"
-    ) {
-
-        renderSearch();
-
-    }
-
-
-    if (
-        name ===
-        "notes"
-    ) {
-
-        renderNotes();
-
-    }
-
-
-    if (
-        name ===
-        "stack"
-    ) {
-
-        renderFiles();
-
-    }
-
-}
+);
 
 
 /* =========================================================
    NEW CHAT
 ========================================================= */
 
+document
+    .getElementById(
+        "newChatButton"
+    )
+    .addEventListener(
+        "click",
+        newChat
+    );
+
+
 function newChat() {
 
-    currentChat = {
+    currentChatId =
+        null;
 
-        id:
-            createID(),
+    messages.innerHTML =
+        "";
 
-        title:
-            "New chat",
+    messages.classList.remove(
+        "active"
+    );
 
-        created:
-            Date.now(),
+    welcome.classList.remove(
+        "hidden"
+    );
 
-        messages:
-            []
+    bottomComposer.classList.remove(
+        "active"
+    );
 
-    };
+    centerInput.value =
+        "";
+
+    bottomInput.value =
+        "";
+
+    resizeTextarea(
+        centerInput
+    );
+
+    resizeTextarea(
+        bottomInput
+    );
+
+    updateSendButtons();
+
+    setRandomGreeting();
+
+    centerInput.focus();
+
+}
 
 
-    document
-        .getElementById(
-            "messages"
-        )
-        .innerHTML =
+/* =========================================================
+   CHAT LIST
+========================================================= */
+
+function renderChatList() {
+
+    chatList.innerHTML =
         "";
 
 
-    document
-        .getElementById(
-            "greetingText"
-        )
-        .textContent =
-        randomGreeting();
+    [...chats]
+        .reverse()
+        .forEach(
+            chat => {
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+                row.className =
+                    "chat-row";
 
 
-    document
-        .getElementById(
-            "chatView"
-        )
-        .classList
-        .add(
-            "empty"
+                const open =
+                    document.createElement(
+                        "button"
+                    );
+
+                open.className =
+                    "chat-open";
+
+                open.textContent =
+                    chat.title ||
+                    "New Chat";
+
+
+                open.addEventListener(
+                    "click",
+                    () => {
+
+                        openChat(
+                            chat.id
+                        );
+
+                    }
+                );
+
+
+                const remove =
+                    document.createElement(
+                        "button"
+                    );
+
+                remove.className =
+                    "delete-chat";
+
+                remove.textContent =
+                    "✕";
+
+
+                remove.addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+                        requestChatDeletion(
+                            chat.id
+                        );
+
+                    }
+                );
+
+
+                row.appendChild(
+                    open
+                );
+
+                row.appendChild(
+                    remove
+                );
+
+                chatList.appendChild(
+                    row
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   OPEN CHAT
+========================================================= */
+
+function openChat(id) {
+
+    const chat =
+        chats.find(
+            item =>
+                item.id === id
         );
 
 
-    document
-        .getElementById(
-            "homeGreeting"
-        )
-        .style
-        .display =
-        "block";
+    if (!chat) {
+        return;
+    }
 
 
-    document
-        .getElementById(
-            "messageInput"
-        )
-        .value =
-        "";
+    currentChatId =
+        chat.id;
 
 
-    resizeInput();
-
-    updateSendButton();
-
-
-    showView(
-        "chat"
+    welcome.classList.add(
+        "hidden"
     );
 
 
-    focusInput();
+    bottomComposer.classList.add(
+        "active"
+    );
+
+
+    renderMessages(
+        chat.messages
+    );
+
+
+    bottomInput.focus();
 
 }
 
 
 /* =========================================================
-   UNIQUE ID
+   DELETE CHAT
 ========================================================= */
 
-function createID() {
+function requestChatDeletion(id) {
 
-    return (
-
-        Date.now().toString(
-            36
-        ) +
-
-        "_" +
-
-        Math.random()
-            .toString(
-                36
-            )
-            .slice(
-                2
-            )
-
-    );
-
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-function focusInput() {
+    chatPendingDeletion =
+        id;
 
     document
         .getElementById(
-            "messageInput"
+            "deleteOverlay"
         )
-        .focus();
-
-}
-
-
-function resizeInput() {
-
-    const input =
-        document
-            .getElementById(
-                "messageInput"
-            );
-
-
-    input.style.height =
-        "auto";
-
-
-    input.style.height =
-        Math.min(
-            input.scrollHeight,
-            180
-        ) +
-        "px";
-
-}
-
-
-function updateSendButton() {
-
-    const input =
-        document
-            .getElementById(
-                "messageInput"
-            );
-
-
-    const button =
-        document
-            .getElementById(
-                "sendButton"
-            );
-
-
-    const hasText =
-        input
-            .value
-            .trim()
-            .length >
-        0;
-
-
-    button.disabled =
-        !hasText;
-
-
-    button.classList.toggle(
-        "ready",
-        hasText
-    );
+        .classList.add(
+            "visible"
+        );
 
 }
 
 
 document
     .getElementById(
-        "messageInput"
+        "cancelDelete"
     )
     .addEventListener(
-        "input",
+        "click",
         () => {
 
-            resizeInput();
+            chatPendingDeletion =
+                null;
 
-            updateSendButton();
+            document
+                .getElementById(
+                    "deleteOverlay"
+                )
+                .classList.remove(
+                    "visible"
+                );
 
         }
     );
@@ -2335,138 +1845,134 @@ document
 
 document
     .getElementById(
-        "messageInput"
+        "confirmDelete"
     )
     .addEventListener(
-        "keydown",
-        event => {
+        "click",
+        () => {
 
             if (
-                event.key ===
-                "Enter" &&
-                !event.shiftKey
+                !chatPendingDeletion
+            ) {
+                return;
+            }
+
+
+            const id =
+                chatPendingDeletion;
+
+
+            chats =
+                chats.filter(
+                    chat =>
+                        chat.id !== id
+                );
+
+
+            saveChats();
+
+            renderChatList();
+
+
+            if (
+                currentChatId === id
             ) {
 
-                event.preventDefault();
-
-                sendMessage();
+                newChat();
 
             }
 
+
+            chatPendingDeletion =
+                null;
+
+
+            document
+                .getElementById(
+                    "deleteOverlay"
+                )
+                .classList.remove(
+                    "visible"
+                );
+
         }
     );
 
 
 /* =========================================================
-   SEND MESSAGE
+   MESSAGE RENDERING
 ========================================================= */
 
-async function sendMessage() {
+function renderMessages(
+    messageArray
+) {
 
-    const input =
-        document
-            .getElementById(
-                "messageInput"
-            );
-
-
-    const text =
-        input
-            .value
-            .trim();
-
-
-    if (!text) {
-
-        return;
-
-    }
-
-
-    if (!currentChat) {
-
-        currentChat = {
-
-            id:
-                createID(),
-
-            title:
-                "New chat",
-
-            created:
-                Date.now(),
-
-            messages:
-                []
-
-        };
-
-    }
-
-
-    currentChat.messages.push({
-
-        role:
-            "user",
-
-        content:
-            text
-
-    });
-
-
-    if (
-        currentChat.messages.length ===
-        1
-    ) {
-
-        currentChat.title =
-            text.slice(
-                0,
-                65
-            );
-
-    }
-
-
-    appendMessage(
-        "user",
-        text
-    );
-
-
-    input.value =
+    messages.innerHTML =
         "";
 
 
-    resizeInput();
+    messageArray.forEach(
+        message => {
 
-    updateSendButton();
+            appendMessage(
+                message.role,
+                message.content,
+                false
+            );
 
-
-    document
-        .getElementById(
-            "chatView"
-        )
-        .classList
-        .remove(
-            "empty"
-        );
+        }
+    );
 
 
-    document
-        .getElementById(
-            "homeGreeting"
-        )
-        .style
-        .display =
-        "none";
+    messages.classList.toggle(
+        "active",
+        messageArray.length > 0
+    );
 
 
-    saveCurrentChat();
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
 
 
-    await getMistResponse();
+/* =========================================================
+   MIST LOGO
+========================================================= */
+
+function getLogoSVG() {
+
+    return `
+
+        <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+        >
+
+            <path
+                class="mist-logo-shape"
+                d="
+                    M48 18
+                    C41 8 27 6 17 14
+                    C7 22 7 37 16 47
+                    C25 57 41 56 49 46
+                    C54 40 55 32 52 25
+                    L52 39
+                "
+            />
+
+            <path
+                class="mist-logo-shape"
+                d="
+                    M45 34
+                    L52 41
+                    L59 34
+                "
+            />
+
+        </svg>
+
+    `;
 
 }
 
@@ -2477,7 +1983,8 @@ async function sendMessage() {
 
 function appendMessage(
     role,
-    text
+    content,
+    shouldScroll = true
 ) {
 
     const row =
@@ -2485,9 +1992,8 @@ function appendMessage(
             "div"
         );
 
-
     row.className =
-        "message " +
+        "message-row " +
         role;
 
 
@@ -2496,1150 +2002,1056 @@ function appendMessage(
         "assistant"
     ) {
 
-        const avatar =
+        const logo =
             document.createElement(
                 "div"
             );
 
+        logo.className =
+            "assistant-logo";
 
-        avatar.className =
-            "message-avatar";
-
-
-        avatar.appendChild(
-            createMistLogo()
-        );
-
+        logo.innerHTML =
+            getLogoSVG();
 
         row.appendChild(
-            avatar
+            logo
         );
 
     }
 
 
-    const content =
+    const bubble =
         document.createElement(
             "div"
         );
 
+    bubble.className =
+        "message " +
+        role;
 
-    content.className =
-        "message-content";
-
-
-    content.innerHTML =
-        formatText(
-            text
-        );
+    bubble.textContent =
+        content;
 
 
     row.appendChild(
-        content
+        bubble
     );
 
 
-    document
-        .getElementById(
-            "messages"
-        )
-        .appendChild(
-            row
-        );
-
-
-    const container =
-        document
-            .getElementById(
-                "messagesContainer"
-            );
-
-
-    requestAnimationFrame(
-        () => {
-
-            container.scrollTop =
-                container.scrollHeight;
-
-        }
+    messages.appendChild(
+        row
     );
+
+
+    if (
+        shouldScroll
+    ) {
+
+        scrollMessages();
+
+    }
+
+
+    return bubble;
 
 }
 
 
 /* =========================================================
-   LOGO FACTORY
+   SCROLL CHAT
 ========================================================= */
 
-function createMistLogo() {
+function scrollMessages() {
 
-    const logo =
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* =========================================================
+   THINKING STATUS UI
+========================================================= */
+
+function createThinkingIndicator() {
+
+    const row =
         document.createElement(
             "div"
         );
 
+    row.className =
+        "thinking-row";
 
-    logo.className =
-        "mist-logo";
+    row.id =
+        "thinkingMessage";
 
 
-    logo.innerHTML = `
+    row.innerHTML = `
 
-        <svg
-            viewBox="0 0 64 48"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+        <div class="thinking-logo">
+            ${getLogoSVG()}
+        </div>
 
-            <path
-                d="
-                    M7 24
-                    C4 20, 7 15, 12 15
-                    C13 9, 19 7, 24 10
-                    C28 6, 36 7, 39 12
-                    C45 10, 51 13, 51 18
-                    C57 17, 61 20, 59 25
-                "
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                opacity=".95"
-            />
+        <div class="thinking-content">
 
-            <path
-                d="
-                    M6 28
-                    C13 24, 18 27, 23 29
-                    C29 32, 35 31, 40 27
-                    C46 23, 52 24, 58 28
-                "
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-                opacity=".68"
-            />
+            <div class="thinking-label">
 
-            <path
-                d="
-                    M11 35
-                    C17 32, 23 33, 28 36
-                    C34 39, 40 38, 45 35
-                    C49 33, 53 33, 56 35
-                "
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3.5"
-                stroke-linecap="round"
-                opacity=".32"
-            />
+                <span>
+                    Thinking
+                </span>
 
-            <circle
-                cx="55"
-                cy="9"
-                r="2"
-                fill="currentColor"
-                opacity=".4"
-            />
+                <span class="thinking-dots">
 
-        </svg>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </span>
+
+            </div>
+
+            <div
+                class="thinking-status"
+                id="thinkingStatus"
+            >
+                ${thinkingStatuses[0]}
+            </div>
+
+        </div>
 
     `;
 
 
-    return logo;
+    messages.appendChild(
+        row
+    );
+
+
+    scrollMessages();
+
+
+    return row;
 
 }
 
 
 /* =========================================================
-   FORMAT TEXT
+   CYCLE THINKING STATUS
 ========================================================= */
 
-function formatText(
+function startThinkingStatus() {
+
+    const indicator =
+        createThinkingIndicator();
+
+
+    const status =
+        indicator.querySelector(
+            "#thinkingStatus"
+        );
+
+
+    let index =
+        0;
+
+
+    const interval =
+        setInterval(
+            () => {
+
+                if (
+                    !document.body.contains(
+                        indicator
+                    )
+                ) {
+
+                    clearInterval(
+                        interval
+                    );
+
+                    return;
+
+                }
+
+
+                index =
+                    (
+                        index + 1
+                    )
+                    %
+                    thinkingStatuses.length;
+
+
+                status.style.opacity =
+                    "0";
+
+
+                setTimeout(
+                    () => {
+
+                        if (
+                            document.body.contains(
+                                status
+                            )
+                        ) {
+
+                            status.textContent =
+                                thinkingStatuses[
+                                    index
+                                ];
+
+                            status.style.opacity =
+                                "1";
+
+                        }
+
+                    },
+                    120
+                );
+
+            },
+            1600
+        );
+
+
+    return {
+
+        element:
+            indicator,
+
+        stop:
+            () => {
+
+                clearInterval(
+                    interval
+                );
+
+                if (
+                    indicator.parentNode
+                ) {
+
+                    indicator.remove();
+
+                }
+
+            }
+
+    };
+
+}
+
+
+/* =========================================================
+   TYPEWRITER EFFECT
+========================================================= */
+
+function typewriterMessage(
+    bubble,
     text
 ) {
 
-    const div =
-        document.createElement(
-            "div"
-        );
+    return new Promise(
+        resolve => {
+
+            let index =
+                0;
 
 
-    div.textContent =
-        text;
+            bubble.textContent =
+                "";
 
 
-    return div.innerHTML
-
-        .replace(
-            /\*\*(.*?)\*\*/g,
-            "<strong>$1</strong>"
-        )
-
-        .replace(
-            /`([^`]+)`/g,
-            "<code style='background:#1a1a1a;padding:2px 5px;border-radius:4px'>$1</code>"
-        )
-
-        .replace(
-            /\n/g,
-            "<br>"
-        );
-
-}
-
-
-/* =========================================================
-   GROQ RESPONSE
-========================================================= */
-
-async function getMistResponse() {
-
-    const status =
-        document
-            .getElementById(
-                "status"
+            bubble.classList.add(
+                "typewriter-cursor"
             );
 
 
-    status.textContent =
-        "Mist is thinking…";
+            const speed =
+                12;
 
 
-    if (
-        GROQ_API_KEY ===
-        "PASTE_YOUR_GROQ_API_KEY_HERE"
-    ) {
+            function typeNext() {
 
-        const message =
-            "Add your Groq API key near the top of this HTML file to start chatting with Mist.";
+                if (
+                    index >=
+                    text.length
+                ) {
 
+                    bubble.classList.remove(
+                        "typewriter-cursor"
+                    );
 
-        currentChat.messages.push({
+                    bubble.textContent =
+                        text;
 
-            role:
-                "assistant",
+                    resolve();
 
-            content:
-                message
-
-        });
-
-
-        appendMessage(
-            "assistant",
-            message
-        );
-
-
-        saveCurrentChat();
-
-
-        status.textContent =
-            "";
-
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                GROQ_URL,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            "Bearer " +
-                            GROQ_API_KEY
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            model:
-                                GROQ_MODEL,
-
-                            messages: [
-
-                                {
-
-                                    role:
-                                        "system",
-
-                                    content:
-                                        SYSTEM_PROMPT
-
-                                },
-
-                                ...currentChat.messages
-
-                            ],
-
-                            temperature:
-                                .7,
-
-                            max_tokens:
-                                4096
-
-                        })
+                    return;
 
                 }
-            );
 
 
-        if (
-            !response.ok
-        ) {
+                const chunkSize =
+                    text.length > 1200
+                        ? 3
+                        : text.length > 600
+                            ? 2
+                            : 1;
 
-            throw new Error(
-                await response.text()
-            );
+
+                bubble.textContent +=
+                    text.slice(
+                        index,
+                        index +
+                            chunkSize
+                    );
+
+
+                index +=
+                    chunkSize;
+
+
+                scrollMessages();
+
+
+                setTimeout(
+                    typeNext,
+                    speed
+                );
+
+            }
+
+
+            typeNext();
 
         }
-
-
-        const data =
-            await response.json();
-
-
-        const answer =
-            data
-                ?.choices
-                ?.[0]
-                ?.message
-                ?.content ||
-            "I didn't receive a response.";
-
-
-        currentChat.messages.push({
-
-            role:
-                "assistant",
-
-            content:
-                answer
-
-        });
-
-
-        appendMessage(
-            "assistant",
-            answer
-        );
-
-
-        saveCurrentChat();
-
-
-        status.textContent =
-            "";
-
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            error
-        );
-
-
-        const message =
-            "I couldn't connect to Groq. Please check your API key and internet connection.";
-
-
-        currentChat.messages.push({
-
-            role:
-                "assistant",
-
-            content:
-                message
-
-        });
-
-
-        appendMessage(
-            "assistant",
-            message
-        );
-
-
-        saveCurrentChat();
-
-
-        status.textContent =
-            "";
-
-    }
+    );
 
 }
 
 
 /* =========================================================
-   SAVE CURRENT CHAT
+   CHAT CREATION
 ========================================================= */
 
-function saveCurrentChat() {
+function getOrCreateChat(
+    firstMessage
+) {
 
     if (
-        !currentChat ||
-        !currentChat.messages ||
-        !currentChat.messages.length
+        currentChatId
     ) {
 
+        const existing =
+            chats.find(
+                chat =>
+                    chat.id ===
+                    currentChatId
+            );
+
+
+        if (existing) {
+            return existing;
+        }
+
+    }
+
+
+    const chat = {
+
+        id:
+            createId(),
+
+        title:
+            firstMessage.slice(
+                0,
+                42
+            )
+            +
+            (
+                firstMessage.length > 42
+                    ? "…"
+                    : ""
+            ),
+
+        createdAt:
+            Date.now(),
+
+        messages:
+            []
+
+    };
+
+
+    chats.push(
+        chat
+    );
+
+
+    currentChatId =
+        chat.id;
+
+
+    return chat;
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
+async function sendMessage(
+    text
+) {
+
+    text =
+        text.trim();
+
+
+    if (!text) {
         return;
-
     }
 
 
-    const existingIndex =
-        chats.findIndex(
-            chat =>
-                String(
-                    chat.id
-                ) ===
-                String(
-                    currentChat.id
-                )
+    const chat =
+        getOrCreateChat(
+            text
         );
 
 
-    if (
-        existingIndex ===
-        -1
-    ) {
+    chat.messages.push({
 
-        chats.unshift(
-            currentChat
-        );
+        role:
+            "user",
 
-    } else {
+        content:
+            text
 
-        chats[
-            existingIndex
-        ] =
-            currentChat;
-
-    }
+    });
 
 
     saveChats();
 
+    renderChatList();
 
-    renderRecentChats();
+
+    welcome.classList.add(
+        "hidden"
+    );
+
+
+    bottomComposer.classList.add(
+        "active"
+    );
+
+
+    messages.classList.add(
+        "active"
+    );
+
+
+    appendMessage(
+        "user",
+        text
+    );
+
+
+    centerInput.value =
+        "";
+
+    bottomInput.value =
+        "";
+
+
+    resizeTextarea(
+        centerInput
+    );
+
+    resizeTextarea(
+        bottomInput
+    );
+
+
+    updateSendButtons();
+
+
+    /*
+       Show a user-facing status while
+       the AI request is being processed.
+    */
+
+    const thinking =
+        startThinkingStatus();
+
+
+    try {
+
+        const reply =
+            await requestGroq(
+                chat.messages
+            );
+
+
+        /*
+           Remove the thinking indicator
+           before the actual answer appears.
+        */
+
+        thinking.stop();
+
+
+        /*
+           Create the assistant message
+           bubble, but leave it empty.
+        */
+
+        const bubble =
+            appendMessage(
+                "assistant",
+                "",
+                false
+            );
+
+
+        /*
+           Type the response visibly.
+        */
+
+        await typewriterMessage(
+            bubble,
+            reply
+        );
+
+
+        /*
+           Only save the completed response
+           after the typewriter finishes.
+        */
+
+        chat.messages.push({
+
+            role:
+                "assistant",
+
+            content:
+                reply
+
+        });
+
+
+        saveChats();
+
+
+    } catch(error) {
+
+        thinking.stop();
+
+
+        const errorMessage =
+            error.message
+            ||
+            "Something went wrong.";
+
+
+        const bubble =
+            appendMessage(
+                "assistant",
+                "",
+                false
+            );
+
+
+        await typewriterMessage(
+            bubble,
+            errorMessage
+        );
+
+
+        chat.messages.push({
+
+            role:
+                "assistant",
+
+            content:
+                errorMessage
+
+        });
+
+
+        saveChats();
+
+    }
 
 }
 
 
 /* =========================================================
-   RENDER RECENT CHATS
+   GROQ
 ========================================================= */
 
-function renderRecentChats() {
+async function requestGroq(
+    conversation
+) {
 
-    const container =
-        document
-            .getElementById(
-                "recentChats"
-            );
+    if (
+        !GROQ_API_KEY
+    ) {
 
+        /*
+           A short delay makes the status indicator
+           visible even when no API key is configured.
+        */
 
-    /*
-       Completely clear the old DOM.
-       This prevents stale delete buttons
-       and stale chat IDs.
-    */
-
-    container.replaceChildren();
-
-
-    chats
-        .slice(
-            0,
-            15
-        )
-        .forEach(
-            chat => {
-
-                const wrapper =
-                    document.createElement(
-                        "div"
-                    );
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    900
+                )
+        );
 
 
-                wrapper.className =
-                    "recent-chat-wrapper";
+        return (
+            "Your Groq API key has not been added yet. " +
+            "Add it to the GROQ_API_KEY variable near the " +
+            "top of this HTML file."
+        );
+
+    }
 
 
-                wrapper.dataset.chatId =
-                    String(
-                        chat.id
-                    );
+    const response =
+        await fetch(
+            GROQ_ENDPOINT,
+            {
 
+                method:
+                    "POST",
 
-                const button =
-                    document.createElement(
-                        "button"
-                    );
+                headers: {
 
+                    "Content-Type":
+                        "application/json",
 
-                button.className =
-                    "recent-chat";
+                    "Authorization":
+                        "Bearer " +
+                        GROQ_API_KEY
 
+                },
 
-                button.type =
-                    "button";
+                body:
+                    JSON.stringify({
 
+                        model:
+                            GROQ_MODEL,
 
-                button.dataset.action =
-                    "open";
+                        messages: [
 
+                            {
 
-                button.textContent =
-                    chat.title ||
-                    "Untitled chat";
+                                role:
+                                    "system",
 
+                                content:
+                                    "You are Mist, a helpful, thoughtful, intelligent AI assistant. Be natural, clear, and useful."
 
-                button.title =
-                    chat.title ||
-                    "Untitled chat";
+                            },
 
+                            ...conversation
 
-                const deleteButton =
-                    document.createElement(
-                        "button"
-                    );
+                        ],
 
+                        temperature:
+                            0.7
 
-                deleteButton.className =
-                    "delete-chat-button";
-
-
-                deleteButton.type =
-                    "button";
-
-
-                deleteButton.dataset.action =
-                    "delete";
-
-
-                deleteButton.setAttribute(
-                    "aria-label",
-                    "Delete chat"
-                );
-
-
-                deleteButton.title =
-                    "Delete chat";
-
-
-                deleteButton.textContent =
-                    "×";
-
-
-                wrapper.appendChild(
-                    button
-                );
-
-
-                wrapper.appendChild(
-                    deleteButton
-                );
-
-
-                container.appendChild(
-                    wrapper
-                );
+                    })
 
             }
         );
 
+
+    if (
+        !response.ok
+    ) {
+
+        let message =
+            "The AI request failed.";
+
+
+        try {
+
+            const data =
+                await response.json();
+
+            message =
+                data
+                    ?.error
+                    ?.message
+                ||
+                message;
+
+        } catch {
+
+        }
+
+
+        throw new Error(
+            message
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    return (
+
+        data
+            ?.choices
+            ?.[0]
+            ?.message
+            ?.content
+
+        ||
+
+        "I wasn't able to generate a response."
+
+    );
+
 }
 
 
 /* =========================================================
-   EVENT DELEGATION FOR CHAT SIDEBAR
+   TEXTAREA
 ========================================================= */
 
-/*
-   This listener is attached ONCE to #recentChats.
+function resizeTextarea(
+    textarea
+) {
 
-   It continues working even after renderRecentChats()
-   destroys and recreates all chat buttons.
-
-   This avoids the problem of individual dynamically
-   created buttons losing their event listeners.
-*/
-
-document
-    .getElementById(
-        "recentChats"
-    )
-    .addEventListener(
-        "click",
-        event => {
-
-            const actionButton =
-                event.target.closest(
-                    "[data-action]"
-                );
+    textarea.style.height =
+        "auto";
 
 
-            if (
-                !actionButton
-            ) {
+    textarea.style.height =
+        Math.min(
+            textarea.scrollHeight,
+            120
+        )
+        +
+        "px";
 
-                return;
-
-            }
-
-
-            const wrapper =
-                actionButton.closest(
-                    ".recent-chat-wrapper"
-                );
+}
 
 
-            if (
-                !wrapper
-            ) {
+/* =========================================================
+   SEND BUTTONS
+========================================================= */
 
-                return;
+function updateSendButtons() {
 
-            }
+    centerSend.disabled =
+        !centerInput.value.trim();
 
+    bottomSend.disabled =
+        !bottomInput.value.trim();
 
-            const chatID =
-                wrapper.dataset.chatId;
-
-
-            const action =
-                actionButton.dataset.action;
+}
 
 
-            /*
-               DELETE
-            */
+centerInput.addEventListener(
+    "input",
+    () => {
 
-            if (
-                action ===
-                "delete"
-            ) {
+        resizeTextarea(
+            centerInput
+        );
 
-                event.preventDefault();
+        updateSendButtons();
 
-                event.stopPropagation();
-
-
-                requestDeleteChat(
-                    chatID
-                );
+    }
+);
 
 
-                return;
+bottomInput.addEventListener(
+    "input",
+    () => {
 
-            }
+        resizeTextarea(
+            bottomInput
+        );
+
+        updateSendButtons();
+
+    }
+);
 
 
-            /*
-               OPEN
-            */
+centerInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+            &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
 
             if (
-                action ===
-                "open"
+                !centerSend.disabled
             ) {
 
-                event.preventDefault();
-
-
-                openChat(
-                    chatID
+                sendMessage(
+                    centerInput.value
                 );
 
             }
 
         }
-    );
-
-
-/* =========================================================
-   REQUEST DELETE
-========================================================= */
-
-function requestDeleteChat(
-    chatID
-) {
-
-    const id =
-        String(
-            chatID
-        );
-
-
-    const chat =
-        chats.find(
-            item =>
-                String(
-                    item.id
-                ) ===
-                id
-        );
-
-
-    if (
-        !chat
-    ) {
-
-        console.warn(
-            "Delete requested for unknown chat:",
-            id
-        );
-
-
-        return;
 
     }
+);
 
 
-    pendingDeleteChatID =
-        id;
+bottomInput.addEventListener(
+    "keydown",
+    event => {
 
+        if (
+            event.key === "Enter"
+            &&
+            !event.shiftKey
+        ) {
 
-    document
-        .getElementById(
-            "deleteMessage"
-        )
-        .textContent =
+            event.preventDefault();
 
-        `"${chat.title || "Untitled chat"}" will be permanently removed.`;
+            if (
+                !bottomSend.disabled
+            ) {
 
-
-    document
-        .getElementById(
-            "deleteOverlay"
-        )
-        .classList
-        .add(
-            "show"
-        );
-
-}
-
-
-/* =========================================================
-   CANCEL DELETE
-========================================================= */
-
-function cancelDelete() {
-
-    pendingDeleteChatID =
-        null;
-
-
-    document
-        .getElementById(
-            "deleteOverlay"
-        )
-        .classList
-        .remove(
-            "show"
-        );
-
-}
-
-
-/* =========================================================
-   CONFIRM DELETE
-========================================================= */
-
-function confirmDelete() {
-
-    if (
-        pendingDeleteChatID ===
-        null
-    ) {
-
-        return;
-
-    }
-
-
-    const id =
-        String(
-            pendingDeleteChatID
-        );
-
-
-    /*
-       Find the chat using the exact ID.
-    */
-
-    const index =
-        chats.findIndex(
-            chat =>
-                String(
-                    chat.id
-                ) ===
-                id
-        );
-
-
-    /*
-       If it no longer exists, close the dialog
-       and rebuild the sidebar.
-    */
-
-    if (
-        index ===
-        -1
-    ) {
-
-        cancelDelete();
-
-        renderRecentChats();
-
-        return;
-
-    }
-
-
-    /*
-       Remove it from the actual JavaScript array.
-    */
-
-    chats.splice(
-        index,
-        1
-    );
-
-
-    /*
-       Immediately persist the updated array.
-    */
-
-    const saved =
-        saveChats();
-
-
-    /*
-       Remove the corresponding DOM element
-       immediately as well.
-    */
-
-    const wrapper =
-        document.querySelector(
-            `.recent-chat-wrapper[data-chat-id="${CSS.escape(id)}"]`
-        );
-
-
-    if (
-        wrapper
-    ) {
-
-        wrapper.remove();
-
-    }
-
-
-    /*
-       If this was the currently open chat,
-       clear the conversation.
-    */
-
-    if (
-        currentChat &&
-        String(
-            currentChat.id
-        ) ===
-        id
-    ) {
-
-        currentChat =
-            null;
-
-
-        document
-            .getElementById(
-                "messages"
-            )
-            .replaceChildren();
-
-
-        document
-            .getElementById(
-                "messageInput"
-            )
-            .value =
-            "";
-
-
-        document
-            .getElementById(
-                "chatView"
-            )
-            .classList
-            .add(
-                "empty"
-            );
-
-
-        document
-            .getElementById(
-                "homeGreeting"
-            )
-            .style
-            .display =
-            "block";
-
-
-        document
-            .getElementById(
-                "greetingText"
-            )
-            .textContent =
-            randomGreeting();
-
-
-        resizeInput();
-
-        updateSendButton();
-
-    }
-
-
-    /*
-       Final consistency check:
-       Rebuild the sidebar from the actual array.
-    */
-
-    renderRecentChats();
-
-
-    cancelDelete();
-
-
-    if (
-        saved
-    ) {
-
-        showToast(
-            "Chat deleted"
-        );
-
-    } else {
-
-        showToast(
-            "Chat removed for this session"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   OPEN CHAT
-========================================================= */
-
-function openChat(
-    chatID
-) {
-
-    const id =
-        String(
-            chatID
-        );
-
-
-    const chat =
-        chats.find(
-            item =>
-                String(
-                    item.id
-                ) ===
-                id
-        );
-
-
-    if (
-        !chat
-    ) {
-
-        return;
-
-    }
-
-
-    currentChat =
-        JSON.parse(
-            JSON.stringify(
-                chat
-            )
-        );
-
-
-    document
-        .getElementById(
-            "messages"
-        )
-        .replaceChildren();
-
-
-    currentChat.messages
-        .forEach(
-            message => {
-
-                appendMessage(
-                    message.role,
-                    message.content
+                sendMessage(
+                    bottomInput.value
                 );
 
             }
+
+        }
+
+    }
+);
+
+
+centerSend.addEventListener(
+    "click",
+    () => {
+
+        sendMessage(
+            centerInput.value
         );
 
+    }
+);
 
-    document
-        .getElementById(
-            "chatView"
-        )
-        .classList
-        .remove(
-            "empty"
+
+bottomSend.addEventListener(
+    "click",
+    () => {
+
+        sendMessage(
+            bottomInput.value
         );
 
-
-    document
-        .getElementById(
-            "homeGreeting"
-        )
-        .style
-        .display =
-        "none";
-
-
-    showView(
-        "chat"
-    );
-
-}
+    }
+);
 
 
 /* =========================================================
-   SEARCH
+   SEARCH CHATS
 ========================================================= */
 
-document
-    .getElementById(
+const searchOverlay =
+    document.getElementById(
+        "searchOverlay"
+    );
+
+const searchInput =
+    document.getElementById(
         "searchInput"
-    )
-    .addEventListener(
-        "input",
-        renderSearch
+    );
+
+const searchResults =
+    document.getElementById(
+        "searchResults"
     );
 
 
-function renderSearch() {
+document
+    .getElementById(
+        "searchButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
 
-    const query =
-        document
-            .getElementById(
-                "searchInput"
-            )
-            .value
+            searchOverlay.classList.add(
+                "visible"
+            );
+
+            searchInput.value =
+                "";
+
+            renderSearchResults(
+                ""
+            );
+
+            setTimeout(
+                () =>
+                    searchInput.focus(),
+                50
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "closeSearch"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            searchOverlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        renderSearchResults(
+            searchInput.value
+        );
+
+    }
+);
+
+
+function renderSearchResults(
+    query
+) {
+
+    const search =
+        query
+            .trim()
             .toLowerCase();
 
 
-    const results =
-        document
-            .getElementById(
-                "searchResults"
-            );
+    if (!search) {
 
+        searchResults.innerHTML = `
 
-    results.replaceChildren();
+            <div class="search-empty">
+                Start typing to search your chats.
+            </div>
 
-
-    const matches =
-        chats.filter(
-            chat =>
-
-                !query ||
-
-                (
-                    chat.title ||
-                    ""
-                )
-                    .toLowerCase()
-                    .includes(
-                        query
-                    ) ||
-
-                chat.messages.some(
-                    message =>
-
-                        (
-                            message.content ||
-                            ""
-                        )
-                            .toLowerCase()
-                            .includes(
-                                query
-                            )
-
-                )
-
-        );
-
-
-    if (
-        !matches.length
-    ) {
-
-        results.innerHTML =
-            '<div style="color:#777;padding:20px 4px;font-size:13px">No chats found.</div>';
+        `;
 
         return;
 
     }
 
 
-    matches.forEach(
+    const results =
+        chats
+            .filter(
+                chat => {
+
+                    const title =
+                        (
+                            chat.title ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const messagesText =
+                        (
+                            chat.messages ||
+                            []
+                        )
+                        .map(
+                            message =>
+                                message.content ||
+                                ""
+                        )
+                        .join(
+                            " "
+                        )
+                        .toLowerCase();
+
+
+                    return (
+
+                        title.includes(
+                            search
+                        )
+
+                        ||
+
+                        messagesText.includes(
+                            search
+                        )
+
+                    );
+
+                }
+            )
+            .reverse();
+
+
+    if (
+        results.length === 0
+    ) {
+
+        searchResults.innerHTML = `
+
+            <div class="search-empty">
+                No matching chats found.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    searchResults.innerHTML =
+        "";
+
+
+    results.forEach(
         chat => {
 
-            const row =
+            const button =
                 document.createElement(
-                    "div"
+                    "button"
                 );
 
-
-            row.className =
+            button.className =
                 "search-result";
-
-
-            const info =
-                document.createElement(
-                    "div"
-                );
-
-
-            info.className =
-                "search-result-info";
 
 
             const title =
@@ -3647,75 +3059,67 @@ function renderSearch() {
                     "div"
                 );
 
-
             title.className =
                 "search-result-title";
 
-
             title.textContent =
-                chat.title;
+                chat.title ||
+                "New Chat";
 
 
-            const date =
+            const preview =
                 document.createElement(
                     "div"
                 );
 
+            preview.className =
+                "search-result-preview";
 
-            date.className =
-                "search-result-date";
 
-
-            date.textContent =
-                new Date(
-                    chat.created
+            const lastMessage =
+                (
+                    chat.messages ||
+                    []
                 )
-                .toLocaleString();
+                .slice(
+                    -1
+                )[0];
 
 
-            info.appendChild(
+            preview.textContent =
+                lastMessage
+                    ?.content
+                ||
+                "No messages";
+
+
+            button.appendChild(
                 title
             );
 
-
-            info.appendChild(
-                date
+            button.appendChild(
+                preview
             );
 
 
-            const open =
-                document.createElement(
-                    "button"
-                );
+            button.addEventListener(
+                "click",
+                () => {
 
+                    searchOverlay.classList.remove(
+                        "visible"
+                    );
 
-            open.className =
-                "button";
-
-
-            open.textContent =
-                "Open";
-
-
-            open.onclick =
-                () =>
                     openChat(
                         chat.id
                     );
 
-
-            row.appendChild(
-                info
+                }
             );
 
 
-            row.appendChild(
-                open
-            );
-
-
-            results.appendChild(
-                row
+            searchResults.appendChild(
+                button
             );
 
         }
@@ -3728,733 +3132,400 @@ function renderSearch() {
    NOTES
 ========================================================= */
 
-function newNote() {
-
-    currentNote =
-        null;
-
-
-    document
-        .getElementById(
-            "noteTitle"
-        )
-        .value =
-        "";
-
-
-    document
-        .getElementById(
-            "noteEditor"
-        )
-        .value =
-        "";
-
-
-    document
-        .getElementById(
-            "noteTitle"
-        )
-        .focus();
-
-}
-
-
-function saveNote() {
-
-    const title =
-        document
-            .getElementById(
-                "noteTitle"
-            )
-            .value
-            .trim() ||
-        "Untitled note";
-
-
-    const content =
-        document
-            .getElementById(
-                "noteEditor"
-            )
-            .value;
-
-
-    if (
-        currentNote
-    ) {
-
-        const note =
-            notes.find(
-                item =>
-                    item.id ===
-                    currentNote
-            );
-
-
-        if (note) {
-
-            note.title =
-                title;
-
-            note.content =
-                content;
-
-        }
-
-    } else {
-
-        currentNote =
-            createID();
-
-
-        notes.unshift({
-
-            id:
-                currentNote,
-
-            title:
-                title,
-
-            content:
-                content
-
-        });
-
-    }
-
-
-    saveData();
-
-
-    showToast(
-        "Note saved"
+const notesOverlay =
+    document.getElementById(
+        "notesOverlay"
     );
 
-}
+const notesTextarea =
+    document.getElementById(
+        "notesTextarea"
+    );
 
 
-function renderNotes() {
-
-    if (
-        !currentNote &&
-        notes.length
-    ) {
-
-        currentNote =
-            notes[0].id;
-
-    }
+notesTextarea.value =
+    localStorage.getItem(
+        NOTES_STORAGE_KEY
+    )
+    ||
+    "";
 
 
-    const note =
-        notes.find(
-            item =>
-                item.id ===
-                currentNote
+document
+    .getElementById(
+        "notesButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            notesOverlay.classList.add(
+                "visible"
+            );
+
+            notesTextarea.focus();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "closeNotes"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            notesOverlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+
+
+notesTextarea.addEventListener(
+    "input",
+    () => {
+
+        localStorage.setItem(
+
+            NOTES_STORAGE_KEY,
+
+            notesTextarea.value
+
         );
 
-
-    if (note) {
-
-        document
-            .getElementById(
-                "noteTitle"
-            )
-            .value =
-            note.title;
-
-
-        document
-            .getElementById(
-                "noteEditor"
-            )
-            .value =
-            note.content;
-
     }
-
-}
+);
 
 
 /* =========================================================
    STACK
 ========================================================= */
 
-function renderFiles() {
+const stackOverlay =
+    document.getElementById(
+        "stackOverlay"
+    );
 
-    const list =
-        document
-            .getElementById(
-                "fileList"
+const stackEditor =
+    document.getElementById(
+        "stackEditor"
+    );
+
+const stackPreview =
+    document.getElementById(
+        "stackPreview"
+    );
+
+
+let currentStackLanguage =
+    "html";
+
+
+const stackCode = {
+
+    html:
+`<div class="hello">
+    <h1>Hello from Stack</h1>
+    <p>Start building something here.</p>
+</div>`,
+
+    css:
+`.hello {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+}
+
+h1 {
+    color: #333;
+}`,
+
+    js:
+`console.log("Hello from Stack!");`
+
+};
+
+
+document
+    .getElementById(
+        "stackButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            stackOverlay.classList.add(
+                "visible"
             );
 
+            switchStackLanguage(
+                "html"
+            );
 
-    list.replaceChildren();
+        }
+    );
 
 
-    Object.keys(
-        files
+document
+    .getElementById(
+        "closeStack"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            stackOverlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        ".stack-tab"
     )
     .forEach(
-        name => {
+        tab => {
 
-            const item =
-                document.createElement(
-                    "div"
-                );
+            tab.addEventListener(
+                "click",
+                () => {
 
-
-            item.className =
-                "file-item" +
-
-                (
-                    name ===
-                    currentFile
-                        ? " active"
-                        : ""
-                );
+                    const language =
+                        tab.dataset.language;
 
 
-            item.textContent =
-                name;
+                    if (
+                        language ===
+                        "preview"
+                    ) {
 
+                        showStackPreview();
 
-            item.onclick =
-                () =>
-                    openFile(
-                        name
-                    );
+                    } else {
 
+                        switchStackLanguage(
+                            language
+                        );
 
-            list.appendChild(
-                item
+                    }
+
+                }
             );
 
         }
     );
 
 
-    document
-        .getElementById(
-            "currentFileName"
-        )
-        .textContent =
-        currentFile;
-
-
-    document
-        .getElementById(
-            "codeEditor"
-        )
-        .value =
-        files[
-            currentFile
-        ] ||
-        "";
-
-}
-
-
-function openFile(
-    name
+function switchStackLanguage(
+    language
 ) {
 
-    files[
-        currentFile
-    ] =
-        document
-            .getElementById(
-                "codeEditor"
-            )
-            .value;
-
-
-    currentFile =
-        name;
-
-
-    saveData();
-
-
-    renderFiles();
-
-}
-
-
-function newFile() {
-
-    const name =
-        prompt(
-            "File name:",
-            "script.js"
-        );
-
-
-    if (!name) {
-
-        return;
-
-    }
-
-
-    if (
-        files[name] !==
-        undefined
-    ) {
-
-        showToast(
-            "That file already exists."
-        );
-
-        return;
-
-    }
-
-
-    files[name] =
-        "";
-
-
-    currentFile =
-        name;
-
-
-    saveData();
-
-
-    renderFiles();
-
-}
-
-
-function runCode() {
-
-    files[
-        currentFile
-    ] =
-        document
-            .getElementById(
-                "codeEditor"
-            )
-            .value;
-
-
-    saveData();
-
-
-    if (
-        currentFile
-            .toLowerCase()
-            .endsWith(
-                ".html"
-            )
-    ) {
-
-        const preview =
-            window.open(
-                "",
-                "_blank"
-            );
-
-
-        if (!preview) {
-
-            document
-                .getElementById(
-                    "stackOutput"
-                )
-                .textContent =
-                "Your browser blocked the preview.";
-
-            return;
-
-        }
-
-
-        preview.document.open();
-
-
-        preview.document.write(
-            files[
-                currentFile
-            ]
-        );
-
-
-        preview.document.close();
-
-
-        document
-            .getElementById(
-                "stackOutput"
-            )
-            .textContent =
-            "HTML preview opened in a new tab.";
-
-    } else {
-
-        document
-            .getElementById(
-                "stackOutput"
-            )
-            .textContent =
-            "Preview is currently available for HTML files.";
-
-    }
-
-}
-
-
-function askMistFromStack() {
-
-    files[
-        currentFile
-    ] =
-        document
-            .getElementById(
-                "codeEditor"
-            )
-            .value;
-
-
-    saveData();
-
-
-    const promptText =
-`I'm working on ${currentFile} in Stack.
-
-Here is my current code:
-
-${files[currentFile]}
-
-Please review this code and help me improve, debug, or explain it.`;
-
-
-    if (!currentChat) {
-
-        currentChat = {
-
-            id:
-                createID(),
-
-            title:
-                "Stack session",
-
-            created:
-                Date.now(),
-
-            messages:
-                []
-
-        };
-
-    }
-
-
-    currentChat.messages.push({
-
-        role:
-            "user",
-
-        content:
-            promptText
-
-    });
+    currentStackLanguage =
+        language;
 
 
     document
-        .getElementById(
-            "messages"
+        .querySelectorAll(
+            ".stack-tab"
         )
-        .replaceChildren();
+        .forEach(
+            tab => {
 
+                tab.classList.toggle(
 
-    appendMessage(
-        "user",
-        promptText
-    );
+                    "active",
 
+                    tab.dataset.language ===
+                    language
 
-    document
-        .getElementById(
-            "chatView"
-        )
-        .classList
-        .remove(
-            "empty"
+                );
+
+            }
         );
 
 
-    document
-        .getElementById(
-            "homeGreeting"
-        )
-        .style
-        .display =
+    stackEditor.style.display =
+        "block";
+
+    stackPreview.style.display =
         "none";
 
 
-    showView(
-        "chat"
+    stackEditor.value =
+        stackCode[language]
+        ||
+        "";
+
+}
+
+
+stackEditor.addEventListener(
+    "input",
+    () => {
+
+        stackCode[
+            currentStackLanguage
+        ] =
+            stackEditor.value;
+
+    }
+);
+
+
+function showStackPreview() {
+
+    stackCode.html =
+        stackEditor.value;
+
+
+    document
+        .querySelectorAll(
+            ".stack-tab"
+        )
+        .forEach(
+            tab => {
+
+                tab.classList.toggle(
+
+                    "active",
+
+                    tab.dataset.language ===
+                    "preview"
+
+                );
+
+            }
+        );
+
+
+    stackEditor.style.display =
+        "none";
+
+    stackPreview.style.display =
+        "block";
+
+
+    const html =
+        stackCode.html
+        ||
+        "";
+
+
+    const css =
+        stackCode.css
+        ||
+        "";
+
+
+    const js =
+        stackCode.js
+        ||
+        "";
+
+
+    stackPreview.srcdoc = `
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <style>
+
+                ${css}
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${html}
+
+            <script>
+
+                ${js}
+
+            <\/script>
+
+        </body>
+
+        </html>
+
+    `;
+
+}
+
+
+document
+    .getElementById(
+        "stackRun"
+    )
+    .addEventListener(
+        "click",
+        showStackPreview
     );
 
 
-    getMistResponse();
+document
+    .getElementById(
+        "stackClear"
+    )
+    .addEventListener(
+        "click",
+        () => {
 
-}
+            stackEditor.value =
+                "";
+
+            stackCode[
+                currentStackLanguage
+            ] =
+                "";
+
+        }
+    );
 
 
 /* =========================================================
    SETTINGS
 ========================================================= */
 
-function openSettings() {
+document
+    .getElementById(
+        "settingsButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
 
-    document
-        .getElementById(
-            "personalitySetting"
-        )
-        .value =
-        localStorage.getItem(
-            "mistPersonality"
-        ) ||
-        "balanced";
-
-
-    document
-        .getElementById(
-            "settingsOverlay"
-        )
-        .classList
-        .add(
-            "show"
-        );
-
-}
-
-
-function closeSettings() {
-
-    document
-        .getElementById(
-            "settingsOverlay"
-        )
-        .classList
-        .remove(
-            "show"
-        );
-
-}
-
-
-function saveSettings() {
-
-    localStorage.setItem(
-        "mistPersonality",
-        document
-            .getElementById(
-                "personalitySetting"
-            )
-            .value
-    );
-
-
-    closeSettings();
-
-
-    showToast(
-        "Settings saved"
-    );
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(
-    message
-) {
-
-    const toast =
-        document
-            .getElementById(
-                "toast"
+            alert(
+                "Mist's configuration is stored directly in this single HTML file."
             );
 
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        window.mistToastTimer
-    );
-
-
-    window.mistToastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            1600
-        );
-
-}
-
-
-/* =========================================================
-   OVERLAY EVENTS
-========================================================= */
-
-document
-    .getElementById(
-        "sidebarBackdrop"
-    )
-    .addEventListener(
-        "click",
-        closeMobileSidebar
-    );
-
-
-document
-    .getElementById(
-        "settingsOverlay"
-    )
-    .addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                document.getElementById(
-                    "settingsOverlay"
-                )
-            ) {
-
-                closeSettings();
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "deleteOverlay"
-    )
-    .addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                document.getElementById(
-                    "deleteOverlay"
-                )
-            ) {
-
-                cancelDelete();
-
-            }
-
-        }
-    );
-
-
-document
-    .addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                if (
-                    document
-                        .getElementById(
-                            "deleteOverlay"
-                        )
-                        .classList
-                        .contains(
-                            "show"
-                        )
-                ) {
-
-                    cancelDelete();
-
-                }
-
-
-                if (
-                    document
-                        .getElementById(
-                            "settingsOverlay"
-                        )
-                        .classList
-                        .contains(
-                            "show"
-                        )
-                ) {
-
-                    closeSettings();
-
-                }
-
-            }
-
         }
     );
 
 
 /* =========================================================
-   STARTUP
+   INITIALIZE
 ========================================================= */
 
-document
-    .getElementById(
-        "greetingText"
-    )
-    .textContent =
-    randomGreeting();
+renderChatList();
 
+setRandomGreeting();
 
-renderRecentChats();
+updateSendButtons();
 
-
-renderFiles();
-
-
-if (
-    localStorage.getItem(
-        "mistSidebarCollapsed"
-    ) ===
-    "1"
-) {
-
-    document
-        .getElementById(
-            "sidebar"
-        )
-        .classList
-        .add(
-            "collapsed"
-        );
-
-}
+centerInput.focus();
 
 </script>
 
